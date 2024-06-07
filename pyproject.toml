@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "setuptools-scm"]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -47,4 +47,5 @@ Issues = "https://github.com/viplazylmt/sql-datalineage/issues"
 packages = ["datalineage"]
 
 [tool.setuptools.dynamic]
-version = {attr = "datalineage.VERSION"}
+
+[tool.setuptools_scm]
