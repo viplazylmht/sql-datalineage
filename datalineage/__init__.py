@@ -1,1 +1,7 @@
-VERSION = "0.0.1"
+from importlib.metadata import version, PackageNotFoundError
+
+try:
+    __version__ = version("sql-datalineage")
+except PackageNotFoundError:
+    # package is not installed
+    pass
