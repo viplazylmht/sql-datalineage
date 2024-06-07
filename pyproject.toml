@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sql-datalineage"
+authors = [
+    {name = "Duy Ha", email = "viplazylmt@gmail.com"},
+]
+description = "A project to build and visualize data lineage from SQL written in python. It supports column level lineage and can combine with metadata retriever for better result."
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["data", "lineage", "column-level-lineage"]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: SQL",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+    "click",
+    "requests",
+    "sqlglot[rs]",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "pre-commit",
+    "ruff==0.4.3",
+]
+
+[project.scripts]
+datalineage = "datalineage.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/viplazylmt/sql-datalineage"
+Source = "https://github.com/viplazylmt/sql-datalineage"
+Issues = "https://github.com/viplazylmt/sql-datalineage/issues"
+
+[tool.setuptools]
+packages = ["datalineage"]
+
+[tool.setuptools.dynamic]
+version = {attr = "datalineage.VERSION"}
