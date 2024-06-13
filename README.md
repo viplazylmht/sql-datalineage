@@ -5,6 +5,9 @@
 A project to build and visualize data lineage from SQL written in python. It supports column level lineage and can combine with metadata retriever for better result.
 
 # Install
+```bash
+pip install sql-datalineage
+```
 
 # Usage
 ```bash
