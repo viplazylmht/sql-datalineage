@@ -21,8 +21,8 @@ class NodeType(str, Enum):
 class Node:
     name: Union[str, exp.Expression]
     expression: exp.Expression
-    generated_expression: exp.Expression
-    source_expression: exp.Expression
+    generated_expression: Optional[exp.Expression]
+    source_expression: Optional[exp.Expression]
     _parent: Optional["Node"] = None
     node_type: Optional[NodeType] = None
     children: List["Node"] = field(default_factory=list)
@@ -53,6 +53,17 @@ class Node:
             child.parent = self
             self.children.append(child)
         return self
+
+    def get_child_by_name(self, child_name: str) -> Optional["Node"]:
+        """Get a child of this node, return None if not found."""
+        resolved_child = None
+
+        for child in self.children:
+            if child_name == child.name:
+                resolved_child = child
+                break
+
+        return resolved_child
 
     def walk(self):
         """Pre-Order DFS"""

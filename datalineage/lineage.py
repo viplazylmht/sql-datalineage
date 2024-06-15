@@ -4,6 +4,8 @@ from sqlglot import exp, parse_one
 from sqlglot.optimizer.scope import build_scope
 from sqlglot.optimizer.qualify import qualify
 
+from typing import Dict
+
 from datalineage.node import Node, NodeType
 from datalineage.logger import setup_logger
 
@@ -41,7 +43,7 @@ def create_node(
         )
         upstream.add_downstream(this_node)
 
-        nodes = {}
+        nodes: Dict[str, Node] = {}
         for table_name, child_source in scope.selected_sources.items():
             child_table, child_scope = child_source
             name = child_table
@@ -76,9 +78,23 @@ def create_node(
                         f"Column {c_dep} does not belongs to any table in set {nodes.keys()}"
                     )
 
-                for child in parent_node.children:
-                    if c_name == child.name:
-                        child_node.add_downstream(child)
+                parent_child = parent_node.get_child_by_name(c_name)
+
+                # create new child column for the table node (infer the schema of the table node)
+                if not parent_child:
+                    parent_source = scope.selected_sources.get(c_table)
+                    if isinstance(parent_source, tuple) and isinstance(parent_source[1], exp.Table):
+                        parent_child = Node(
+                            name=c_name,
+                            expression=exp.Column(this=exp.to_identifier(c_name)),
+                            generated_expression=parent_source[1].parent,
+                            source_expression=parent_source[1].parent,
+                            node_type=NodeType.COLUMN,
+                        )
+                        parent_node.add_child(parent_child)
+
+                if parent_child:
+                    child_node.add_downstream(parent_child)
 
         return this_node
 
@@ -124,7 +140,7 @@ def lineage(sql, schema=None):
 
     # TODO: check DML and DDL here and remove the DML, DDL part
     schema = ensure_schema(schema)
-    ast = qualify(ast, schema=schema, validate_qualify_columns=False)
+    ast = qualify(ast, schema=schema, validate_qualify_columns=False, infer_schema=True)
     scp = build_scope(ast)
 
     if not scp:
