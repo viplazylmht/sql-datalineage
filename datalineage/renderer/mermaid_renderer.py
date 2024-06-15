@@ -2,7 +2,7 @@ from enum import Enum
 from typing import List
 from sqlglot import exp
 
-from datalineage.node import Node
+from datalineage.node import Node, NodeType
 from datalineage.renderer.renderer import Renderer
 
 
@@ -37,7 +37,8 @@ class MermaidRenderer(Renderer):
             replaced_name = self.remove_quote(str(n.name))
 
             # each primary node is a subgraph
-            result.append('subgraph {} ["{}: {}"]'.format(id(n), n.node_type.value, replaced_name))
+            node_type = n.node_type or NodeType.UNKNOWN
+            result.append('subgraph {} ["{}: {}"]'.format(id(n), node_type.value, replaced_name))
             for child in n.children:
                 result.append('{}["{}"]'.format(id(child), child.name.replace('"', "")))
             result.append("end")
