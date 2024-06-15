@@ -37,7 +37,7 @@ class MermaidRenderer(Renderer):
             replaced_name = self.remove_quote(str(n.name))
 
             # each primary node is a subgraph
-            result.append('subgraph {} ["{}: {}"]'.format(id(n), n.node_type, replaced_name))
+            result.append('subgraph {} ["{}: {}"]'.format(id(n), n.node_type.value, replaced_name))
             for child in n.children:
                 result.append('{}["{}"]'.format(id(child), child.name.replace('"', "")))
             result.append("end")
