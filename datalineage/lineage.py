@@ -139,8 +139,10 @@ def lineage(sql: str, dialect: Optional[Any] = None, schema: Optional[Any] = Non
     ast = parse_one(sql, read=dialect)
 
     # TODO: check DML and DDL here and remove the DML, DDL part
-    schema = ensure_schema(schema)
-    ast = qualify(ast, schema=schema, validate_qualify_columns=False, infer_schema=True)
+    schema = ensure_schema(schema, dialect=dialect)
+    ast = qualify(
+        ast, schema=schema, validate_qualify_columns=False, infer_schema=True, dialect=dialect
+    )
     scp = build_scope(ast)
 
     if not scp:
