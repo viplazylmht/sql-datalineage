@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.10] - 2024-06-19
+### :bug: Bug Fixes
+- [`2bcde8f`](https://github.com/viplazylmht/sql-datalineage/commit/2bcde8f834a0d5c60d9b8ac1e4544526543e6664) - missmatch dialect when ensure schema and qualify *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+
 ## [v0.0.9] - 2024-06-19
 ### :sparkles: New Features
 - [`7b390cf`](https://github.com/viplazylmht/sql-datalineage/commit/7b390cf738a18770a84095fe9da147b5b4b20af9) - add support parse lineage with dialect *(commit by [@viplazylmht](https://github.com/viplazylmht))*
@@ -34,3 +39,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.7]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.1...v0.0.7
 [v0.0.8]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.7...v0.0.8
 [v0.0.9]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.8...v0.0.9
+[v0.0.10]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.9...v0.0.10
