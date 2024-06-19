@@ -4,7 +4,7 @@ from sqlglot import exp, parse_one
 from sqlglot.optimizer.scope import build_scope
 from sqlglot.optimizer.qualify import qualify
 
-from typing import Dict
+from typing import Dict, Optional, Any
 
 from datalineage.node import Node, NodeType
 from datalineage.logger import setup_logger
@@ -135,8 +135,8 @@ def create_node(
         return tail_node
 
 
-def lineage(sql, schema=None):
-    ast = parse_one(sql)
+def lineage(sql: str, dialect: Optional[Any] = None, schema: Optional[Any] = None):
+    ast = parse_one(sql, read=dialect)
 
     # TODO: check DML and DDL here and remove the DML, DDL part
     schema = ensure_schema(schema)

@@ -15,11 +15,14 @@ logger = setup_logger(__name__)
 @click.option("-i", "--input", prompt="Input path", help="The input path of the sql.")
 @click.option("-o", "--output", default=None, prompt=False, help="The output path of the result.")
 @click.option(
+    "-d", "--dialect", default=None, prompt=False, help="The dialect which input belong to."
+)
+@click.option(
     "--schema-path",
     prompt="Path to schema json file",
     help="Path to schema json file, which contains sqlglot schema.",
 )
-def make_lineage(input, output, schema_path):
+def make_lineage(input, output, dialect, schema_path):
     """Generate column level lineage for a query."""
 
     sql = safe_read(input)
@@ -29,7 +32,7 @@ def make_lineage(input, output, schema_path):
     schema = safe_read(schema_path)
     schema = json.loads(schema) if schema else None
 
-    tree = lineage(sql, schema)
+    tree = lineage(sql, dialect, schema)
 
     out_renderer: Renderer = MermaidRenderer()
     rendered_content = out_renderer.render(tree)
