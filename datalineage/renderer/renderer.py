@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Any
 import re
 from datalineage.node import Node
 
@@ -16,7 +15,7 @@ class Renderer(ABC):
             )
 
     @abstractmethod
-    def render(self, node: Node) -> Any:
+    def render(self, node: Node) -> str:
         raise ModuleNotFoundError
 
     @staticmethod

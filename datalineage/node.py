@@ -2,6 +2,7 @@ from enum import Enum
 from dataclasses import dataclass, field
 from typing import List, Optional, Union
 from sqlglot import exp
+import json
 
 
 class NodeType(str, Enum):
@@ -81,18 +82,42 @@ class Node:
 
     def to_json_dict(self) -> dict:
         result = dict(
-            id=id(self),
             name=str(self.name),
             expression=self.expression.sql(),
             generated_expression=self.generated_expression.sql()
             if self.generated_expression
             else None,
             source_expression=self.source_expression.sql() if self.source_expression else None,
-            node_type=self.node_type if self.node_type else None,
+            node_type=self.node_type.value
+            if isinstance(self.node_type, NodeType)
+            else self.node_type
+            if self.node_type
+            else None,
             children=[child.to_json_dict() for child in self.children],
             downstreams=[downstream.to_json_dict() for downstream in self.downstreams],
         )
         return result
+
+    def __str__(self) -> str:
+        return "Node<{}>".format(json.dumps(self.to_json_dict()))
+
+    def __hash__(self) -> int:
+        return hash(self.__str__())
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.__hash__() == other.__hash__()
+        else:
+            return NotImplemented
+
+    def __ne__(self, other):
+        if isinstance(other, self.__class__):
+            return not self.__eq__(other)
+        else:
+            return NotImplemented
 
     def lookup(self, expression: exp.Expression) -> Optional["Node"]:
         """traversal from this root through downstreams to get a node containing the expression (if exist)"""
@@ -102,6 +127,3 @@ class Node:
                 return node
 
         return None
-
-    def __str__(self):
-        return f"Node<{self.name}>"
