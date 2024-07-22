@@ -34,6 +34,8 @@ dev = [
     "mypy",
     "pre-commit",
     "ruff==0.4.3",
+    "pyyaml",
+    "types-PyYAML",
 ]
 
 [project.scripts]
