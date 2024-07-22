@@ -1,0 +1,6 @@
+- path: test_cases/test_basic
+  input_path: input.sql
+  output_path: json_output.json
+  schema_path: schema.json
+  dialect:
+  output_type: json
