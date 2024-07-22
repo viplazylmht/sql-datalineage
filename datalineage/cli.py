@@ -1,8 +1,7 @@
 import click
 import json
 
-from datalineage.renderer.renderer import Renderer
-from datalineage.renderer.mermaid_renderer import MermaidRenderer
+from datalineage.renderer import Renderer, ensure_renderer
 
 from datalineage.lineage import lineage
 from datalineage.util import safe_read, safe_write
@@ -15,6 +14,13 @@ logger = setup_logger(__name__)
 @click.option("-i", "--input", prompt="Input path", help="The input path of the sql.")
 @click.option("-o", "--output", default=None, prompt=False, help="The output path of the result.")
 @click.option(
+    "-r",
+    "--renderer",
+    default="mermaid",
+    type=click.Choice(["json", "mermaid"], case_sensitive=False),
+    help="The renderer used to render format of lineage output to file.",
+)
+@click.option(
     "-d", "--dialect", default=None, prompt=False, help="The dialect which input belong to."
 )
 @click.option(
@@ -22,7 +28,7 @@ logger = setup_logger(__name__)
     prompt="Path to schema json file",
     help="Path to schema json file, which contains sqlglot schema.",
 )
-def make_lineage(input, output, dialect, schema_path):
+def make_lineage(input, output, renderer, dialect, schema_path):
     """Generate column level lineage for a query."""
 
     sql = safe_read(input)
@@ -34,7 +40,7 @@ def make_lineage(input, output, dialect, schema_path):
 
     tree = lineage(sql, dialect, schema)
 
-    out_renderer: Renderer = MermaidRenderer()
+    out_renderer: Renderer = ensure_renderer(renderer)
     rendered_content = out_renderer.render(tree)
 
     if output:
