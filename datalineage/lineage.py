@@ -4,7 +4,7 @@ from sqlglot import exp, parse_one
 from sqlglot.optimizer.scope import build_scope
 from sqlglot.optimizer.qualify import qualify
 
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, Union
 
 from datalineage.node import Node, NodeType
 from datalineage.logger import setup_logger
@@ -13,14 +13,78 @@ logger = setup_logger(__name__)
 
 
 def create_node(
-    root_node: Node, upstream: Node, node_name: str, scope: Scope, schema: Schema
+    root_node: Node,
+    upstream: Node,
+    node_name: str,
+    scope: Union[Scope, exp.Table, None],
+    schema: Schema,
 ) -> Node:
     if isinstance(scope, Scope):
+        if isinstance(scope.expression, exp.Union):
+            union_node = (
+                upstream
+                if upstream.node_type == NodeType.UNION
+                else Node(
+                    name="Union",
+                    expression=scope.expression,
+                    generated_expression=scope.expression,
+                    source_expression=scope.expression,
+                    node_type=NodeType.UNION,
+                )
+            )
+            if id(upstream) != id(union_node):
+                upstream.add_downstream(union_node)
+
+            left_expression = scope.expression.left
+            left_expression.set("with", scope.expression.args.get("with"))
+
+            left_node = create_node(
+                root_node=root_node,
+                upstream=union_node,
+                node_name="Union Slot",
+                scope=build_scope(left_expression),
+                schema=schema,
+            )
+            if id(union_node) != id(left_node):
+                for c in left_node.children:
+                    expression = exp.to_column(c.name)  # type: ignore
+                    child = Node(
+                        name=c.name,
+                        expression=expression,
+                        generated_expression=expression,
+                        source_expression=scope.expression,
+                        node_type=NodeType.COLUMN,
+                    )
+                    child.add_downstream(c)
+                    union_node.add_child(child=child)
+
+            right_expression = scope.expression.right
+            right_expression.set("with", scope.expression.args.get("with"))
+
+            right_node = create_node(
+                root_node=root_node,
+                upstream=union_node,
+                node_name="Union Slot",
+                scope=build_scope(right_expression),
+                schema=schema,
+            )
+            for i, c in enumerate(right_node.children, 0):
+                union_node.children[i].add_downstream(c)
+
+            return union_node
+
         # create upstream
-        this_relation = scope.expression.args.get("from").this
+        elif not isinstance(scope.expression, exp.Select):
+            raise ValueError(
+                "Expected a select statement, actually got {}.".format(scope.expression)
+            )
+
+        this_relation = scope.expression.args.get("from").this  # type: ignore
 
         node_type = NodeType.SELECT
-        if scope.scope_type == ScopeType.ROOT:
+        if upstream.node_type == NodeType.UNION:
+            node_name = node_name + f"#{len(upstream.downstreams)}"
+        elif scope.scope_type == ScopeType.ROOT:
             this_relation = exp.Table(
                 this=exp.to_identifier("ROOT_TABLE"),
                 catalog=exp.to_identifier("catalog"),
@@ -125,7 +189,7 @@ def create_node(
         logger.info(f"WARN: unexpected lineage with source: {scope}")
         tail_node = Node(
             name="<unknown>",
-            expression=scope,
+            expression=scope or exp.Literal(this="<unknown>"),
             generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
             source_expression=None,  # TODO: source_expression should be "FROM {Table}"
             node_type=NodeType.UNKNOWN,

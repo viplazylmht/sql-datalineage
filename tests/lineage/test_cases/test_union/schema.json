@@ -1,0 +1,30 @@
+{
+  "catalog": {
+      "schema1": {
+          "customer": {
+              "id": "INTEGER",
+              "name": "STRING",
+              "phone": "STRING",
+              "address": "STRING",
+              "location": "STRING",
+              "partition": "INTEGER"
+          },
+          "latest_customer": {
+            "new_id": "INTEGER",
+            "name": "STRING",
+            "latest_phone": "STRING",
+            "address": "STRING",
+            "location": "STRING",
+            "partition": "INTEGER"
+        },
+        "tbl_cte3": {
+              "id": "INTEGER",
+              "name": "STRING",
+              "age": "STRING",
+              "phone": "STRING",
+              "address": "STRING",
+              "job": "STRING"
+          }
+      }
+  }
+}
