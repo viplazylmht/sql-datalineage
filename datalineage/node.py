@@ -15,6 +15,8 @@ class NodeType(str, Enum):
     INSERT = "INSERT"
     UPDATE = "Update"
     COLUMN = "Column"
+    UNION = "Union"
+    UNION_ALL = "Union All"
     UNKNOWN = "Unknown"
 
 
@@ -30,8 +32,7 @@ class Node:
     downstreams: List["Node"] = field(default_factory=list)
 
     def add_downstream(self, downstream: "Node") -> "Node":
-        if downstream not in self.downstreams:
-            self.downstreams.append(downstream)
+        self.downstreams.append(downstream)
         return self
 
     @property
