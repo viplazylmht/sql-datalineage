@@ -1,0 +1,737 @@
+{
+    "name": "myroot",
+    "expression": "ANCHOR",
+    "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+    "node_type": "Select",
+    "children": [],
+    "downstreams": [
+        {
+            "name": "Union",
+            "expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+            "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+            "node_type": "Union",
+            "children": [
+                {
+                    "name": "id",
+                    "expression": "id",
+                    "generated_expression": "id",
+                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "id",
+                            "expression": "\"cte1\".\"id\"",
+                            "generated_expression": "\"cte1\".\"id\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "id",
+                                    "expression": "\"customer\".\"id\"",
+                                    "generated_expression": "\"customer\".\"id\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "id",
+                                            "expression": "id",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "my_id",
+                            "expression": "-2",
+                            "generated_expression": "-2",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "my_id",
+                            "expression": "\"cte2\".\"my_id\"",
+                            "generated_expression": "\"cte2\".\"my_id\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "my_id",
+                                    "expression": "-1",
+                                    "generated_expression": "-1",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "name",
+                    "expression": "name",
+                    "generated_expression": "name",
+                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "name",
+                            "expression": "\"cte1\".\"name\"",
+                            "generated_expression": "\"cte1\".\"name\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "name",
+                                    "expression": "\"customer\".\"name\"",
+                                    "generated_expression": "\"customer\".\"name\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "name",
+                                            "expression": "name",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "name",
+                            "expression": "'dummy 2'",
+                            "generated_expression": "'dummy 2'",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "name",
+                            "expression": "\"cte2\".\"name\"",
+                            "generated_expression": "\"cte2\".\"name\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "name",
+                                    "expression": "'dummy'",
+                                    "generated_expression": "'dummy'",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "phone",
+                    "expression": "phone",
+                    "generated_expression": "phone",
+                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "phone",
+                            "expression": "\"cte1\".\"phone\"",
+                            "generated_expression": "\"cte1\".\"phone\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "phone",
+                                    "expression": "\"customer\".\"phone\"",
+                                    "generated_expression": "\"customer\".\"phone\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "phone",
+                                            "expression": "phone",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "phone",
+                            "expression": "12345",
+                            "generated_expression": "12345",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "phone",
+                            "expression": "\"cte2\".\"phone\"",
+                            "generated_expression": "\"cte2\".\"phone\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "phone",
+                                    "expression": "1234",
+                                    "generated_expression": "1234",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "address",
+                    "expression": "address",
+                    "generated_expression": "address",
+                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\" UNION ALL WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "address",
+                            "expression": "\"cte1\".\"address\"",
+                            "generated_expression": "\"cte1\".\"address\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "address",
+                                    "expression": "\"customer\".\"address\"",
+                                    "generated_expression": "\"customer\".\"address\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "address",
+                                            "expression": "address",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "address",
+                            "expression": "'unknown2'",
+                            "generated_expression": "'unknown2'",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "address",
+                            "expression": "\"cte2\".\"address\"",
+                            "generated_expression": "\"cte2\".\"address\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "address",
+                                    "expression": "'unknown'",
+                                    "generated_expression": "'unknown'",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "downstreams": [
+                {
+                    "name": "Union Slot#0",
+                    "expression": "\"cte1\" AS \"cte1\"",
+                    "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                    "node_type": "Select",
+                    "children": [
+                        {
+                            "name": "id",
+                            "expression": "\"cte1\".\"id\"",
+                            "generated_expression": "\"cte1\".\"id\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "id",
+                                    "expression": "\"customer\".\"id\"",
+                                    "generated_expression": "\"customer\".\"id\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "id",
+                                            "expression": "id",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "name",
+                            "expression": "\"cte1\".\"name\"",
+                            "generated_expression": "\"cte1\".\"name\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "name",
+                                    "expression": "\"customer\".\"name\"",
+                                    "generated_expression": "\"customer\".\"name\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "name",
+                                            "expression": "name",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "phone",
+                            "expression": "\"cte1\".\"phone\"",
+                            "generated_expression": "\"cte1\".\"phone\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "phone",
+                                    "expression": "\"customer\".\"phone\"",
+                                    "generated_expression": "\"customer\".\"phone\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "phone",
+                                            "expression": "phone",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "address",
+                            "expression": "\"cte1\".\"address\"",
+                            "generated_expression": "\"cte1\".\"address\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte1\".\"id\" AS \"id\", \"cte1\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"address\" AS \"address\" FROM \"cte1\" AS \"cte1\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "address",
+                                    "expression": "\"customer\".\"address\"",
+                                    "generated_expression": "\"customer\".\"address\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "address",
+                                            "expression": "address",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "downstreams": [
+                        {
+                            "name": "\"cte1\" AS \"cte1\"",
+                            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                            "generated_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                            "node_type": "CTE",
+                            "children": [
+                                {
+                                    "name": "id",
+                                    "expression": "\"customer\".\"id\"",
+                                    "generated_expression": "\"customer\".\"id\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "id",
+                                            "expression": "id",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "name",
+                                    "expression": "\"customer\".\"name\"",
+                                    "generated_expression": "\"customer\".\"name\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "name",
+                                            "expression": "name",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "phone",
+                                    "expression": "\"customer\".\"phone\"",
+                                    "generated_expression": "\"customer\".\"phone\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "phone",
+                                            "expression": "phone",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "address",
+                                    "expression": "\"customer\".\"address\"",
+                                    "generated_expression": "\"customer\".\"address\"",
+                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": [
+                                        {
+                                            "name": "address",
+                                            "expression": "address",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "downstreams": [
+                                {
+                                    "name": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                    "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                    "generated_expression": null,
+                                    "source_expression": null,
+                                    "node_type": "Table",
+                                    "children": [
+                                        {
+                                            "name": "id",
+                                            "expression": "id",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        },
+                                        {
+                                            "name": "name",
+                                            "expression": "name",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        },
+                                        {
+                                            "name": "phone",
+                                            "expression": "phone",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        },
+                                        {
+                                            "name": "address",
+                                            "expression": "address",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        },
+                                        {
+                                            "name": "location",
+                                            "expression": "location",
+                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+                                            "node_type": "Column",
+                                            "children": [],
+                                            "downstreams": []
+                                        }
+                                    ],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Union Slot#1",
+                    "expression": "'empty node'",
+                    "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                    "node_type": "Select",
+                    "children": [
+                        {
+                            "name": "my_id",
+                            "expression": "-2",
+                            "generated_expression": "-2",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "name",
+                            "expression": "'dummy 2'",
+                            "generated_expression": "'dummy 2'",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "phone",
+                            "expression": "12345",
+                            "generated_expression": "12345",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "address",
+                            "expression": "'unknown2'",
+                            "generated_expression": "'unknown2'",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT -2 AS \"my_id\", 'dummy 2' AS \"name\", 12345 AS \"phone\", 'unknown2' AS \"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        }
+                    ],
+                    "downstreams": []
+                },
+                {
+                    "name": "Union Slot#2",
+                    "expression": "\"cte2\" AS \"cte2\"",
+                    "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                    "node_type": "Select",
+                    "children": [
+                        {
+                            "name": "my_id",
+                            "expression": "\"cte2\".\"my_id\"",
+                            "generated_expression": "\"cte2\".\"my_id\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "my_id",
+                                    "expression": "-1",
+                                    "generated_expression": "-1",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "name",
+                            "expression": "\"cte2\".\"name\"",
+                            "generated_expression": "\"cte2\".\"name\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "name",
+                                    "expression": "'dummy'",
+                                    "generated_expression": "'dummy'",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "phone",
+                            "expression": "\"cte2\".\"phone\"",
+                            "generated_expression": "\"cte2\".\"phone\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "phone",
+                                    "expression": "1234",
+                                    "generated_expression": "1234",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "address",
+                            "expression": "\"cte2\".\"address\"",
+                            "generated_expression": "\"cte2\".\"address\"",
+                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'join%'), \"cte2\" AS (SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\") SELECT \"cte2\".\"my_id\" AS \"my_id\", \"cte2\".\"name\" AS \"name\", \"cte2\".\"phone\" AS \"phone\", \"cte2\".\"address\" AS \"address\" FROM \"cte2\" AS \"cte2\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "address",
+                                    "expression": "'unknown'",
+                                    "generated_expression": "'unknown'",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ],
+                    "downstreams": [
+                        {
+                            "name": "\"cte2\" AS \"cte2\"",
+                            "expression": "'empty node'",
+                            "generated_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                            "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                            "node_type": "CTE",
+                            "children": [
+                                {
+                                    "name": "my_id",
+                                    "expression": "-1",
+                                    "generated_expression": "-1",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                },
+                                {
+                                    "name": "name",
+                                    "expression": "'dummy'",
+                                    "generated_expression": "'dummy'",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                },
+                                {
+                                    "name": "phone",
+                                    "expression": "1234",
+                                    "generated_expression": "1234",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                },
+                                {
+                                    "name": "address",
+                                    "expression": "'unknown'",
+                                    "generated_expression": "'unknown'",
+                                    "source_expression": "SELECT -1 AS \"my_id\", 'dummy' AS \"name\", 1234 AS \"phone\", 'unknown' AS \"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ],
+                            "downstreams": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

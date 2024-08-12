@@ -1,0 +1,29 @@
+{
+  "catalog": {
+      "schema1": {
+          "customer": {
+              "id": "INTEGER",
+              "name": "STRING",
+              "phone": "STRING",
+              "address": "STRING",
+              "location": "STRING"
+          },
+          "user_demographics": {
+              "id": "INTEGER",
+              "name": "STRING",
+              "age": "STRING",
+              "phone": "STRING",
+              "customer_job": "STRING",
+              "parent": "STRING"
+          },
+          "tbl_cte3": {
+              "id": "INTEGER",
+              "name": "STRING",
+              "age": "STRING",
+              "phone": "STRING",
+              "address": "STRING",
+              "job": "STRING"
+          }
+      }
+  }
+}
