@@ -78,8 +78,10 @@ def create_node(
             raise ValueError(
                 "Expected a select statement, actually got {}.".format(scope.expression)
             )
-
-        this_relation = scope.expression.args.get("from").this  # type: ignore
+        this_relation: Optional[exp.Expression] = None
+        from_expression: exp.From = scope.expression.args.get("from")  # type: ignore
+        if from_expression:
+            this_relation = from_expression.this
 
         node_type = NodeType.SELECT
         if upstream.node_type == NodeType.UNION:
@@ -94,17 +96,26 @@ def create_node(
         elif scope.scope_type == ScopeType.DERIVED_TABLE:
             node_type = NodeType.SUBQUERY
             this_relation = scope.expression.parent
-            node_name = this_relation.alias_or_name
+            node_name = this_relation.alias_or_name  # type: ignore
         elif scope.scope_type == ScopeType.CTE:
             node_type = NodeType.CTE
 
-        this_node = Node(
-            name=node_name,
-            expression=this_relation,
-            generated_expression=scope.expression,
-            source_expression=scope.expression,
-            node_type=node_type,
-        )
+        if not this_relation:
+            this_node = Node(
+                name=node_name,
+                expression=exp.Literal(this="empty node", is_string=True),
+                generated_expression=scope.expression,
+                source_expression=scope.expression,
+                node_type=node_type,
+            )
+        else:
+            this_node = Node(
+                name=node_name,
+                expression=this_relation,
+                generated_expression=scope.expression,
+                source_expression=scope.expression,
+                node_type=node_type,
+            )
         upstream.add_downstream(this_node)
 
         nodes: Dict[str, Node] = {}
