@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.11] - 2024-08-12
+### :sparkles: New Features
+- [`6f29b8c`](https://github.com/viplazylmht/sql-datalineage/commit/6f29b8c5b5116b15f9f1405c1d80fb7f41e94ebc) - **ci**: add yaml module to dev env *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+- [`38964e6`](https://github.com/viplazylmht/sql-datalineage/commit/38964e649f03af7db6aa790c905abef2d439819a) - **renderer**: force render method return str *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+- [`5bbfacd`](https://github.com/viplazylmht/sql-datalineage/commit/5bbfacd99a98ebd1ade3d3345340d7ab17eab8f6) - add support for union *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+- [`9f1befa`](https://github.com/viplazylmht/sql-datalineage/commit/9f1befa35c3d53098c4d5d51982f48644399f6ee) - support select statement without contains from *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+
 ## [v0.0.10] - 2024-06-19
 ### :bug: Bug Fixes
 - [`2bcde8f`](https://github.com/viplazylmht/sql-datalineage/commit/2bcde8f834a0d5c60d9b8ac1e4544526543e6664) - missmatch dialect when ensure schema and qualify *(commit by [@viplazylmht](https://github.com/viplazylmht))*
@@ -40,3 +48,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.8]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.7...v0.0.8
 [v0.0.9]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.8...v0.0.9
 [v0.0.10]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.9...v0.0.10
+[v0.0.11]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.10...v0.0.11
