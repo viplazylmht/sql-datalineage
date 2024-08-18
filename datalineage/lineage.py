@@ -1,7 +1,7 @@
 from sqlglot.optimizer.scope import Scope, ScopeType
 from sqlglot.schema import Schema, ensure_schema
 from sqlglot import exp, parse_one
-from sqlglot.optimizer.scope import build_scope
+from sqlglot.optimizer.scope import build_scope, find_all_in_scope
 from sqlglot.optimizer.qualify import qualify
 
 from typing import Dict, Optional, Any, Union
@@ -83,6 +83,11 @@ def create_node(
         if from_expression:
             this_relation = from_expression.this
 
+        subquery_scopes = {
+            id(subquery_scope.expression): subquery_scope
+            for subquery_scope in scope.subquery_scopes
+        }
+
         node_type = NodeType.SELECT
         if upstream.node_type == NodeType.UNION:
             node_name = node_name + f"#{len(upstream.downstreams)}"
@@ -149,9 +154,7 @@ def create_node(
 
                 parent_node = nodes.get(c_table)
                 if not parent_node:
-                    raise ValueError(
-                        f"Column {c_dep} does not belongs to any table in set {nodes.keys()}"
-                    )
+                    continue
 
                 parent_child = parent_node.get_child_by_name(c_name)
 
@@ -170,6 +173,28 @@ def create_node(
 
                 if parent_child:
                     child_node.add_downstream(parent_child)
+
+            for subquery in find_all_in_scope(select, exp.UNWRAPPED_QUERIES):
+                subquery_scope = subquery_scopes.get(id(subquery))
+
+                if subquery_scope:
+                    subquery_node = create_node(
+                        root_node=root_node,
+                        upstream=this_node,
+                        node_name="Scalar subquery",
+                        scope=subquery_scope,
+                        schema=schema,
+                    )
+
+                    if subquery_node:
+                        child_node.add_downstream(subquery_node)
+
+                else:
+                    logger.error(
+                        "The suquery {} in column {} was not found in the parent scope".format(
+                            str(subquery), select.alias_or_name
+                        )
+                    )
 
         return this_node
 
