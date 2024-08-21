@@ -1,12 +1,18 @@
 <div align="center">
 <br>
 <h1>SQL Data Lineage</h1>
+<p>
+  <a href="https://github.com/viplazylmht/sql-datalineage/actions/workflows/python-package.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/viplazylmht/sql-datalineage/python-package.yml">
+  </a>
+  <a href="https://github.com/viplazylmht/sql-datalineage/actions/workflows/python-publish.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/viplazylmht/sql-datalineage/python-publish.yml?label=publish">
+  </a>
+  <a href="https://pypi.org/project/sql-datalineage">
+    <img src="https://img.shields.io/pypi/v/sql-datalineage?color=cyan">
+  </a>
+</p>
 </div>
-
-[![Test and Lint](https://github.com/viplazylmht/sql-datalineage/actions/workflows/python-package.yml/badge.svg)](https://github.com/viplazylmht/sql-datalineage/actions/workflows/python-package.yml)
-[![Publish Python Package to PyPI](https://github.com/viplazylmht/sql-datalineage/actions/workflows/python-publish.yml/badge.svg)](https://github.com/viplazylmht/sql-datalineage/actions/workflows/python-publish.yml)
-![PyPI - Version](https://img.shields.io/pypi/v/sql-datalineage?color=cyan)
-
 
 Introducing SQL Data Lineage, a powerful package designed to simplify SQL query analysis. This versatile tool parses data lineage from individual SQL queries or builds comprehensive lineage from multiple queries. It offers both an interactive command-line interface and programmatic integration, making it easy to incorporate into your Python projects.
 
