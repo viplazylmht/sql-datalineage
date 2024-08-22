@@ -12,7 +12,7 @@ select id, name, age, phone, customer_job job from tmp_cte
 select id, name, age, phone, job from catalog.schema1.tbl_cte3
 )
 select * from (
-select t1.*, concat(t1.name, t2.name) as full_name, max(age) as max_age
+select t1.*, concat(t1.name, t2.name) as full_name, max(age) as max_age, (SELECT MAX(id) AS max_id FROM catalog.schema1.customer) as maxid
 from cte1 t1 left join cte2 t2 on t1.phone = t2.phone
 group by t1.id, concat(t1.name, t2.name)
 having max(age) > 10
