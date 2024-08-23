@@ -86,7 +86,7 @@ You can preview the above result using [Mermaid Live Editor](https://mermaid.liv
 
 ## Interactive usage
 
-You can import datalineage into your proect and generate lineage tree directly.
+You can import datalineage into your project and generate the lineage tree directly.
 
 ```python
 >>> from datalineage.lineage import lineage
@@ -175,7 +175,7 @@ end
 > [!TIP]
 > You can render to json format using `datalineage.renderer.JsonRenderer` class, or customize your own renderer.
 > 
-> Here is the chart of above result:
+> Here is the flow-chart of the above result:
 > ```mermaid
 > %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 > graph LR
