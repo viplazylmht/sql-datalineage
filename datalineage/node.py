@@ -1,3 +1,4 @@
+from copy import deepcopy
 from enum import Enum
 from dataclasses import dataclass, field
 from typing import List, Optional, Union
@@ -119,6 +120,12 @@ class Node:
             return not self.__eq__(other)
         else:
             return NotImplemented
+
+    def copy(self):
+        """
+        Returns a deep copy of the node.
+        """
+        return deepcopy(self)
 
     def lookup(self, expression: exp.Expression) -> Optional["Node"]:
         """traversal from this root through downstreams to get a node containing the expression (if exist)"""
