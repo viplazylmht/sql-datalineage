@@ -4,12 +4,111 @@ from sqlglot import exp, parse_one
 from sqlglot.optimizer.scope import build_scope, find_all_in_scope
 from sqlglot.optimizer.qualify import qualify
 
-from typing import Dict, Optional, Any, Union
+from typing import Dict, Optional, Any, Union, List
 
 from datalineage.node import Node, NodeType
 from datalineage.logger import setup_logger
 
 logger = setup_logger(__name__)
+
+
+def get_destination_node(ast: exp.Expression) -> Optional[Node]:
+    if isinstance(ast, exp.Insert):
+        dest_exp = ast.this
+
+        table_exp: exp.Table
+        columns: List[exp.Identifier] = []
+
+        if isinstance(dest_exp, exp.Table):
+            table_exp = dest_exp
+        elif isinstance(dest_exp, exp.Schema):
+            table_exp = dest_exp.this
+            columns = dest_exp.expressions
+        else:
+            logger.info(
+                "Only support insert in to table or schema, currently {}".format(type(dest_exp))
+            )
+
+        dest_node = Node(
+            name=table_exp.sql(),
+            expression=table_exp,
+            generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
+            source_expression=None,  # TODO: source_expression should be "FROM {Table}"
+            node_type=NodeType.TABLE,
+        )
+
+        for column in columns:
+            child_node = Node(
+                name=column.this,
+                expression=column,
+                generated_expression=column,
+                source_expression=dest_exp,
+                node_type=NodeType.COLUMN,
+            )
+            dest_node.add_child(child_node)
+
+        return dest_node
+
+    return None
+
+
+def create_column_for_table(table_node: Node, column_name: str):
+    dest_column_select_expression = exp.select(column_name).from_(table_node.expression)
+    dest_child = Node(
+        name=column_name,
+        expression=exp.to_identifier(column_name, quoted=False),
+        generated_expression=dest_column_select_expression,
+        source_expression=dest_column_select_expression,
+        node_type=NodeType.COLUMN,
+    )
+    table_node.add_child(dest_child)
+
+
+def link_source_to_dest(dest_table: Node, schema: Schema):
+    if len(dest_table.downstreams) != 1:
+        raise Exception(
+            "Can not build lineage for this statement. Dest table should contains only one SELECT downstream, currently; {}".format(
+                len(dest_table.downstreams)
+            )
+        )
+    elif dest_table.downstreams[0].node_type != NodeType.SELECT:
+        raise Exception(
+            "Can not build lineage for this statement. Dest table downstream should be a select statement."
+        )
+
+    select_downstream = dest_table.downstreams[0]
+    if len(dest_table.children) > 0 and len(dest_table.children) != len(select_downstream.children):
+        raise Exception("Can not build lineage for this statement. Missmatch number of columns.")
+
+    if isinstance(dest_table.expression, exp.Table):
+        dest_schema_columns = schema.column_names(dest_table.expression)
+        if len(dest_table.children) == 0:
+            dest_columns = dest_schema_columns or list(
+                map(
+                    lambda x: x.name.sql() if isinstance(x.name, exp.Expression) else x.name,
+                    select_downstream.children,
+                )
+            )
+
+            for column_name in dest_columns:
+                create_column_for_table(table_node=dest_table, column_name=column_name)
+        else:
+            # validate schema
+            if dest_schema_columns:
+                for child in dest_table.children:
+                    if child.name not in dest_schema_columns:
+                        raise Exception(
+                            "Column {} not found in the schema of table {}. Available columns: {}".format(
+                                child.name, dest_table.expression.sql(), dest_schema_columns
+                            )
+                        )
+
+            for schema_column in dest_schema_columns:
+                if not dest_table.get_child_by_name(schema_column):
+                    create_column_for_table(table_node=dest_table, column_name=schema_column)
+
+        for dest_child, select_child in zip(dest_table.children, select_downstream.children):
+            dest_child.add_downstream(select_child)
 
 
 def create_node(
@@ -259,6 +358,14 @@ def lineage(sql: str, dialect: Optional[Any] = None, schema: Optional[Any] = Non
         node_type=NodeType.SELECT,
     )
 
-    create_node(root_node, root_node, "idk", scp, schema)
+    dest_table: Optional[Node] = get_destination_node(ast)
+    if dest_table:
+        root_node.add_downstream(dest_table)
+
+    create_node(root_node, dest_table or root_node, "idk", scp, schema)
+
+    # link output to dest table
+    if dest_table:
+        link_source_to_dest(dest_table=dest_table, schema=schema)
 
     return root_node
