@@ -46,3 +46,21 @@
   schema_path: schema.json
   dialect:
   output_type: json
+- path: test_cases/test_create
+  input_path: 00_input.sql
+  output_path: 00_json_output.json
+  schema_path: schema.json
+  dialect:
+  output_type: json
+- path: test_cases/test_create
+  input_path: 01_input.sql
+  output_path: 01_json_output.json
+  schema_path: schema.json
+  dialect:
+  output_type: json
+- path: test_cases/test_create
+  input_path: 02_input.sql
+  output_path: 02_json_output.json
+  schema_path: schema.json
+  dialect:
+  output_type: json

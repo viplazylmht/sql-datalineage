@@ -1,0 +1,1 @@
+create table latest_customer(location str, address str, name str, latest_phone int, new_id int)

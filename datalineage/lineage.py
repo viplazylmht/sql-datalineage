@@ -13,7 +13,7 @@ logger = setup_logger(__name__)
 
 
 def get_destination_node(ast: exp.Expression) -> Optional[Node]:
-    if isinstance(ast, exp.Insert):
+    if isinstance(ast, exp.Insert) or isinstance(ast, exp.Create):
         dest_exp = ast.this
 
         table_exp: exp.Table
@@ -66,15 +66,17 @@ def create_column_for_table(table_node: Node, column_name: str):
 
 def link_source_to_dest(dest_table: Node, schema: Schema):
     if len(dest_table.downstreams) != 1:
-        raise Exception(
-            "Can not build lineage for this statement. Dest table should contains only one SELECT downstream, currently; {}".format(
+        logger.info(
+            "Can not link source to dest. Dest table should contains only one SELECT downstream, currently; {}".format(
                 len(dest_table.downstreams)
             )
         )
+        return
     elif dest_table.downstreams[0].node_type != NodeType.SELECT:
-        raise Exception(
-            "Can not build lineage for this statement. Dest table downstream should be a select statement."
+        logger.info(
+            "Can not link source to dest. Dest table downstream should be a select statement."
         )
+        return
 
     select_downstream = dest_table.downstreams[0]
     if len(dest_table.children) > 0 and len(dest_table.children) != len(select_downstream.children):
@@ -344,11 +346,6 @@ def lineage(sql: str, dialect: Optional[Any] = None, schema: Optional[Any] = Non
     )
     scp = build_scope(ast)
 
-    if not scp:
-        raise Exception(
-            "Can not build lineage for this statement. Only accept select or DML or DDL queries."
-        )
-
     root_table = exp.to_identifier("ANCHOR")
     root_node = Node(
         name="myroot",
@@ -362,10 +359,11 @@ def lineage(sql: str, dialect: Optional[Any] = None, schema: Optional[Any] = Non
     if dest_table:
         root_node.add_downstream(dest_table)
 
-    create_node(root_node, dest_table or root_node, "idk", scp, schema)
+    if scp:
+        create_node(root_node, dest_table or root_node, "idk", scp, schema)
 
-    # link output to dest table
-    if dest_table:
-        link_source_to_dest(dest_table=dest_table, schema=schema)
+        # link output to dest table
+        if dest_table:
+            link_source_to_dest(dest_table=dest_table, schema=schema)
 
     return root_node
