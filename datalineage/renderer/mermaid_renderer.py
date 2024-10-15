@@ -40,7 +40,7 @@ class MermaidRenderer(Renderer):
             node_type = n.node_type or NodeType.UNKNOWN
             result.append('subgraph {} ["{}: {}"]'.format(id(n), node_type.value, replaced_name))
             for child in n.children:
-                result.append('{}["{}"]'.format(id(child), child.name.replace('"', "")))
+                result.append('{}["{}"]'.format(id(child), str(child.name).replace('"', "")))
             result.append("end")
 
             # define links between node
