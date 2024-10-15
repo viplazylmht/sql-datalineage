@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.12] - 2024-10-15
+### :sparkles: New Features
+- [`d711767`](https://github.com/viplazylmht/sql-datalineage/commit/d71176769eed9131e401fb6b3fddedc154582f2b) - support parse lineage for scalar subquery *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+- [`71de182`](https://github.com/viplazylmht/sql-datalineage/commit/71de182f7215fc573e70240ff6696c107658ec05) - add support for INSERT statement *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+- [`067dc4a`](https://github.com/viplazylmht/sql-datalineage/commit/067dc4a4fe808e1a9999488c97893f44236bf0c3) - add support for create statement *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+
 ## [v0.0.11] - 2024-08-12
 ### :sparkles: New Features
 - [`6f29b8c`](https://github.com/viplazylmht/sql-datalineage/commit/6f29b8c5b5116b15f9f1405c1d80fb7f41e94ebc) - **ci**: add yaml module to dev env *(commit by [@viplazylmht](https://github.com/viplazylmht))*
@@ -49,3 +56,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.9]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.8...v0.0.9
 [v0.0.10]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.9...v0.0.10
 [v0.0.11]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.10...v0.0.11
+[v0.0.12]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.11...v0.0.12
