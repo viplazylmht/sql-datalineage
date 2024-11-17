@@ -12,12 +12,33 @@ from datalineage.logger import setup_logger
 logger = setup_logger(__name__)
 
 
+def qualify_ast(ast: exp.Expression, schema: Schema, dialect: Optional[Any]) -> exp.Expression:
+    ast = qualify(
+        ast.copy(),
+        schema=schema,
+        validate_qualify_columns=False,
+        infer_schema=True,
+        dialect=dialect,
+    )
+    if isinstance(ast, exp.Merge):
+        merge_using = ast.args.get("using")
+        if isinstance(merge_using, exp.Subquery):
+            qualify(
+                merge_using,
+                schema=schema,
+                validate_qualify_columns=False,
+                infer_schema=True,
+                dialect=dialect,
+            )
+
+    return ast
+
+
 def get_destination_node(ast: exp.Expression) -> Optional[Node]:
+    table_exp: Optional[exp.Table] = None
+    columns: List[exp.Identifier] = []
     if isinstance(ast, exp.Insert) or isinstance(ast, exp.Create):
         dest_exp = ast.this
-
-        table_exp: exp.Table
-        columns: List[exp.Identifier] = []
 
         if isinstance(dest_exp, exp.Table):
             table_exp = dest_exp
@@ -28,69 +49,81 @@ def get_destination_node(ast: exp.Expression) -> Optional[Node]:
             logger.info(
                 "Only support insert in to table or schema, currently {}".format(type(dest_exp))
             )
+    elif isinstance(ast, exp.Merge):
+        dest_exp = ast.this
+        if isinstance(dest_exp, exp.Table):
+            table_exp = dest_exp
+        else:
+            logger.info("Only support merge into table, currently {}".format(type(dest_exp)))
 
-        dest_node = Node(
-            name=table_exp.sql(),
-            expression=table_exp,
-            generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
-            source_expression=None,  # TODO: source_expression should be "FROM {Table}"
-            node_type=NodeType.TABLE,
+    if not table_exp:
+        return None
+
+    dest_node = Node(
+        name=table_exp.sql(),
+        expression=table_exp,
+        generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
+        source_expression=None,  # TODO: source_expression should be "FROM {Table}"
+        node_type=NodeType.TABLE,
+    )
+
+    for column in columns:
+        child_node = Node(
+            name=column.this,
+            expression=column,
+            generated_expression=column,
+            source_expression=dest_exp,
+            node_type=NodeType.COLUMN,
         )
+        dest_node.add_child(child_node)
 
-        for column in columns:
-            child_node = Node(
-                name=column.this,
-                expression=column,
-                generated_expression=column,
-                source_expression=dest_exp,
-                node_type=NodeType.COLUMN,
-            )
-            dest_node.add_child(child_node)
+    return dest_node
 
-        return dest_node
 
-    return None
+def get_scope(ast: Optional[exp.Expression]) -> Optional[Union[Scope, exp.Table]]:
+    if not ast:
+        return None
+    if isinstance(ast, exp.Merge):
+        merge_using = ast.args.get("using")
+        if isinstance(merge_using, exp.Table):
+            return merge_using
+        elif isinstance(merge_using, exp.Expression):
+            return build_scope(merge_using)
+
+    return build_scope(ast)
+
+
+def build_table_column_node(table_node: Node, column_name: str) -> Node:
+    table_column_select_expression = exp.select(column_name).from_(table_node.expression)
+    table_child = Node(
+        name=column_name,
+        expression=exp.to_identifier(column_name, quoted=False),
+        generated_expression=table_column_select_expression,
+        source_expression=table_column_select_expression,
+        node_type=NodeType.COLUMN,
+    )
+
+    return table_child
 
 
 def create_column_for_table(table_node: Node, column_name: str):
-    dest_column_select_expression = exp.select(column_name).from_(table_node.expression)
-    dest_child = Node(
-        name=column_name,
-        expression=exp.to_identifier(column_name, quoted=False),
-        generated_expression=dest_column_select_expression,
-        source_expression=dest_column_select_expression,
-        node_type=NodeType.COLUMN,
+    table_node.add_child(build_table_column_node(table_node=table_node, column_name=column_name))
+
+
+def populate_dest_children(
+    dest_table: Node, schema: Schema, prefered_children: Optional[List[Node]] = None
+):
+    prefered_columns: List[str] = list(
+        map(
+            lambda x: x.name.sql() if isinstance(x.name, exp.Expression) else x.name,
+            prefered_children or [],
+        )
     )
-    table_node.add_child(dest_child)
-
-
-def link_source_to_dest(dest_table: Node, schema: Schema):
-    if len(dest_table.downstreams) != 1:
-        logger.info(
-            "Can not link source to dest. Dest table should contains only one SELECT downstream, currently; {}".format(
-                len(dest_table.downstreams)
-            )
-        )
-        return
-    elif dest_table.downstreams[0].node_type != NodeType.SELECT:
-        logger.info(
-            "Can not link source to dest. Dest table downstream should be a select statement."
-        )
-        return
-
-    select_downstream = dest_table.downstreams[0]
-    if len(dest_table.children) > 0 and len(dest_table.children) != len(select_downstream.children):
-        raise Exception("Can not build lineage for this statement. Missmatch number of columns.")
 
     if isinstance(dest_table.expression, exp.Table):
         dest_schema_columns = schema.column_names(dest_table.expression)
         if len(dest_table.children) == 0:
-            dest_columns = dest_schema_columns or list(
-                map(
-                    lambda x: x.name.sql() if isinstance(x.name, exp.Expression) else x.name,
-                    select_downstream.children,
-                )
-            )
+            dest_columns = dest_schema_columns or prefered_columns
 
             for column_name in dest_columns:
                 create_column_for_table(table_node=dest_table, column_name=column_name)
@@ -109,8 +142,128 @@ def link_source_to_dest(dest_table: Node, schema: Schema):
                 if not dest_table.get_child_by_name(schema_column):
                     create_column_for_table(table_node=dest_table, column_name=schema_column)
 
+
+def link_source_to_dest(ast: exp.Expression, dest_table: Node, schema: Schema):
+    if isinstance(ast, exp.Select) or isinstance(ast, exp.Create) or isinstance(ast, exp.Insert):
+        if len(dest_table.downstreams) != 1:
+            logger.debug(
+                "Skip link source to dest. Dest table should contains only one SELECT downstream, currently; {}".format(
+                    len(dest_table.downstreams)
+                )
+            )
+            return
+        elif dest_table.downstreams[0].node_type not in (NodeType.SELECT, NodeType.SUBQUERY):
+            logger.info(
+                "Skip link source to dest. Dest table downstream should be a select statement."
+            )
+            return
+
+        select_downstream = dest_table.downstreams[0]
+        if len(dest_table.children) > 0 and len(dest_table.children) != len(
+            select_downstream.children
+        ):
+            raise Exception(
+                "Can not build lineage for this statement. Missmatch number of columns."
+                f"\n Number of dest children: {len(dest_table.children)}"
+                f"\n Number of select downstream children: {len(select_downstream.children)}"
+                f"\n dest children: {[str(c.name) for c in dest_table.children]}"
+                f"\n select downstream children: {[str(c.name) for c in select_downstream.children]}"
+            )
+
+        populate_dest_children(
+            dest_table=dest_table, schema=schema, prefered_children=select_downstream.children
+        )
         for dest_child, select_child in zip(dest_table.children, select_downstream.children):
             dest_child.add_downstream(select_child)
+
+    elif isinstance(ast, exp.Merge):
+        merge_insert: Optional[exp.Insert] = None
+        for when_statement in ast.find_all(exp.When):
+            if not when_statement.args.get("matched", True) and isinstance(
+                when_statement.args.get("then"), exp.Insert
+            ):
+                merge_insert = when_statement.args.get("then")
+
+        merge_updates: List[exp.Update] = []
+        for when_statement in ast.find_all(exp.When):
+            when_then_statement = when_statement.args.get("then")
+            if isinstance(when_then_statement, exp.Update):
+                merge_updates.append(when_then_statement)
+
+        dest_columns = []
+        if merge_insert:
+            if isinstance(merge_insert.this, exp.Tuple):
+                for column in merge_insert.this.expressions:
+                    if isinstance(column, exp.Column):
+                        dest_columns.append(column.output_name)
+            elif isinstance(dest_table.expression, exp.Table):
+                dest_columns = list(schema.column_names(dest_table.expression))
+
+        for merge_update in merge_updates:
+            for eq in merge_update.find_all(exp.EQ):
+                if isinstance(eq.this, exp.Column):
+                    target_column = eq.this.output_name
+                    if target_column and target_column not in dest_columns:
+                        dest_columns.append(target_column)
+
+        infer_dest_children = [
+            build_table_column_node(table_node=dest_table, column_name=column)
+            for column in dest_columns
+        ]
+        populate_dest_children(
+            dest_table=dest_table, schema=schema, prefered_children=infer_dest_children
+        )
+
+        source_downstream = dest_table.downstreams[0]
+        if merge_insert:
+            merge_target_columns: List[str]
+            if isinstance(merge_insert.this, exp.Tuple):
+                merge_target_columns = list(
+                    map(
+                        lambda c: c.output_name,
+                        filter(lambda c: isinstance(c, exp.Column), merge_insert.this.expressions),
+                    )
+                )
+            elif isinstance(dest_table.expression, exp.Table):
+                merge_target_columns = list(schema.column_names(dest_table.expression))
+
+            for target_col_name, value in zip(
+                merge_target_columns, merge_insert.expression.expressions
+            ):
+                target_child: Optional[Node] = dest_table.get_child_by_name(target_col_name)
+                if not target_child:
+                    continue
+
+                if isinstance(value, exp.Expression):
+                    for value_column in value.find_all(exp.Column):
+                        source_child = source_downstream.get_child_by_name(value_column.output_name)
+                        if source_child and not target_child.has_downstream(source_child):
+                            target_child.add_downstream(source_child)
+
+        for merge_update in merge_updates:
+            for eq in merge_update.find_all(exp.EQ):
+                if isinstance(eq.this, exp.Column):
+                    target_col_name = eq.this.output_name
+                    target_child = dest_table.get_child_by_name(target_col_name)
+
+                    if not target_child:
+                        continue
+
+                    for value_column in eq.expression.find_all(exp.Column):
+                        if value_column.table == source_downstream.name:
+                            source_child = source_downstream.get_child_by_name(
+                                value_column.output_name
+                            )
+                            if source_child and not target_child.has_downstream(source_child):
+                                target_child.add_downstream(source_child)
+
+
+def load_scope(
+    scope: Union[Scope, exp.Table, None], root_node: Node, upstream: Node, schema: Schema
+):
+    create_node(
+        root_node=root_node, upstream=upstream, node_name="dummy", scope=scope, schema=schema
+    )
 
 
 def create_node(
@@ -175,9 +328,11 @@ def create_node(
             return union_node
 
         # create upstream
-        elif not isinstance(scope.expression, exp.Select):
+        elif not (
+            isinstance(scope.expression, exp.Select) or isinstance(scope.expression, exp.Subquery)
+        ):
             raise ValueError(
-                "Expected a select statement, actually got {}.".format(scope.expression)
+                "Expected a select or subquery statement, actually got {}.".format(scope.expression)
             )
         this_relation: Optional[exp.Expression] = None
         from_expression: exp.From = scope.expression.args.get("from")  # type: ignore
@@ -192,6 +347,14 @@ def create_node(
         node_type = NodeType.SELECT
         if upstream.node_type == NodeType.UNION:
             node_name = node_name + f"#{len(upstream.downstreams)}"
+        elif isinstance(scope.expression, exp.Subquery):
+            node_type = NodeType.SUBQUERY
+            node_name = scope.expression.alias_or_name
+            this_relation = scope.expression.this
+            tmp_scope = get_scope(this_relation)
+            if tmp_scope and isinstance(tmp_scope, Scope):
+                scope = tmp_scope
+
         elif scope.scope_type == ScopeType.ROOT:
             this_relation = exp.Table(
                 this=exp.to_identifier("ROOT_TABLE"),
@@ -302,7 +465,7 @@ def create_node(
     elif isinstance(scope, exp.Table):
         # this is tail node
         tail_node = Node(
-            name=node_name,
+            name=scope,
             expression=scope,
             generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
             source_expression=None,  # TODO: source_expression should be "FROM {Table}"
@@ -339,12 +502,8 @@ def create_node(
 def lineage(sql: str, dialect: Optional[Any] = None, schema: Optional[Any] = None):
     ast = parse_one(sql, read=dialect)
 
-    # TODO: check DML and DDL here and remove the DML, DDL part
     schema = ensure_schema(schema, dialect=dialect)
-    ast = qualify(
-        ast, schema=schema, validate_qualify_columns=False, infer_schema=True, dialect=dialect
-    )
-    scp = build_scope(ast)
+    ast = qualify_ast(ast=ast, schema=schema, dialect=dialect)
 
     root_table = exp.to_identifier("ANCHOR")
     root_node = Node(
@@ -359,11 +518,12 @@ def lineage(sql: str, dialect: Optional[Any] = None, schema: Optional[Any] = Non
     if dest_table:
         root_node.add_downstream(dest_table)
 
+    scp = get_scope(ast)
     if scp:
-        create_node(root_node, dest_table or root_node, "idk", scp, schema)
+        load_scope(scp, root_node, dest_table or root_node, schema)
 
-        # link output to dest table
-        if dest_table:
-            link_source_to_dest(dest_table=dest_table, schema=schema)
+    # link output to dest table
+    if dest_table:
+        link_source_to_dest(ast=ast, dest_table=dest_table, schema=schema)
 
     return root_node

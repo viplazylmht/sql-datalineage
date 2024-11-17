@@ -36,6 +36,9 @@ class Node:
         self.downstreams.append(downstream)
         return self
 
+    def has_downstream(self, node: "Node") -> bool:
+        return node in self.downstreams
+
     @property
     def parent(self):
         return self._parent

@@ -1,0 +1,160 @@
+{
+    "name": "myroot",
+    "expression": "ANCHOR",
+    "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+    "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+    "node_type": "Select",
+    "children": [],
+    "downstreams": [
+        {
+            "name": "\"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+            "expression": "\"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+            "generated_expression": null,
+            "source_expression": null,
+            "node_type": "Table",
+            "children": [
+                {
+                    "name": "name",
+                    "expression": "name",
+                    "generated_expression": "SELECT name FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT name FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "name",
+                            "expression": "name",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        }
+                    ]
+                },
+                {
+                    "name": "phone",
+                    "expression": "phone",
+                    "generated_expression": "SELECT phone FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT phone FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "phone",
+                            "expression": "phone",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        }
+                    ]
+                },
+                {
+                    "name": "address",
+                    "expression": "address",
+                    "generated_expression": "SELECT address FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT address FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "address",
+                            "expression": "address",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        }
+                    ]
+                },
+                {
+                    "name": "state",
+                    "expression": "state",
+                    "generated_expression": "SELECT state FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT state FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": []
+                },
+                {
+                    "name": "custom_col",
+                    "expression": "custom_col",
+                    "generated_expression": "SELECT custom_col FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT custom_col FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": []
+                }
+            ],
+            "downstreams": [
+                {
+                    "name": "\"catalog\".\"schema1\".\"customer\" AS \"d\"",
+                    "expression": "\"catalog\".\"schema1\".\"customer\" AS \"d\"",
+                    "generated_expression": null,
+                    "source_expression": null,
+                    "node_type": "Table",
+                    "children": [
+                        {
+                            "name": "id",
+                            "expression": "id",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "name",
+                            "expression": "name",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "phone",
+                            "expression": "phone",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "address",
+                            "expression": "address",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "location",
+                            "expression": "location",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "partition",
+                            "expression": "partition",
+                            "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING \"catalog\".\"schema1\".\"customer\" AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED THEN INSERT VALUES (\"d\".\"name\", \"d\".\"phone\", \"d\".\"address\", 'no state', 'unknown')",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        }
+                    ],
+                    "downstreams": []
+                }
+            ]
+        }
+    ]
+}
