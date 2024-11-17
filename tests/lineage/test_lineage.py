@@ -46,8 +46,10 @@ class TestLineage(unittest.TestCase):
 
             self.configurations = list(map(ConfigurationModel.model_validate, conf))
 
-    def validate_lineage_equal(self, sql: str, dialect: str, schema: dict, output_str: str):
-        with self.subTest("Test lineage equal: {}: {} == {}".format(dialect, sql, output_str)):
+    def validate_lineage_equal(
+        self, test_name: str, sql: str, dialect: str, schema: dict, output_str: str
+    ):
+        with self.subTest("Test lineage equal: {}".format(test_name)):
             generated_lineage = lineage(sql, dialect, schema)
             self.assertEqual(json.dumps(generated_lineage.to_json_dict(), indent=4), output_str)
 
@@ -67,7 +69,11 @@ class TestLineage(unittest.TestCase):
             schema = json.loads(safe_read(path / conf.schema_path))
 
             self.validate_lineage_equal(
-                sql=input_str, dialect=conf.dialect, schema=schema, output_str=output_str
+                test_name=f"{ pathlib.Path(conf.path) / conf.input_path} -> {pathlib.Path(conf.path) /conf.output_path}",
+                sql=input_str,
+                dialect=conf.dialect,
+                schema=schema,
+                output_str=output_str,
             )
 
 

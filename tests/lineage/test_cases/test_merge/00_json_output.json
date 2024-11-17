@@ -1,0 +1,296 @@
+{
+    "name": "myroot",
+    "expression": "ANCHOR",
+    "generated_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING (SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\") AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED BY SOURCE THEN UPDATE SET \"address\" = COALESCE(\"c\".\"address\", 'default') WHEN NOT MATCHED THEN INSERT (\"phone\", \"name\", \"address\", \"state\", \"custom_col\") VALUES (\"d\".\"phone\", \"d\".\"name\", \"d\".\"address\", \"d\".\"state\", 'unknown')",
+    "source_expression": "MERGE INTO \"catalog\".\"schema1\".\"customer_metric\" AS \"c\" USING (SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\") AS \"d\" ON \"c\".\"name\" = \"d\".\"name\" WHEN MATCHED THEN UPDATE SET \"state\" = COALESCE(\"c\".\"state\", \"d\".\"state\"), \"phone\" = \"d\".\"phone\" WHEN NOT MATCHED BY SOURCE THEN UPDATE SET \"address\" = COALESCE(\"c\".\"address\", 'default') WHEN NOT MATCHED THEN INSERT (\"phone\", \"name\", \"address\", \"state\", \"custom_col\") VALUES (\"d\".\"phone\", \"d\".\"name\", \"d\".\"address\", \"d\".\"state\", 'unknown')",
+    "node_type": "Select",
+    "children": [],
+    "downstreams": [
+        {
+            "name": "\"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+            "expression": "\"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+            "generated_expression": null,
+            "source_expression": null,
+            "node_type": "Table",
+            "children": [
+                {
+                    "name": "name",
+                    "expression": "name",
+                    "generated_expression": "SELECT name FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT name FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "name",
+                            "expression": "\"c\".\"name\"",
+                            "generated_expression": "\"c\".\"name\"",
+                            "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "name",
+                                    "expression": "name",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "phone",
+                    "expression": "phone",
+                    "generated_expression": "SELECT phone FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT phone FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "phone",
+                            "expression": "\"c\".\"phone\"",
+                            "generated_expression": "\"c\".\"phone\"",
+                            "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "phone",
+                                    "expression": "phone",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "address",
+                    "expression": "address",
+                    "generated_expression": "SELECT address FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT address FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "address",
+                            "expression": "NULL",
+                            "generated_expression": "NULL",
+                            "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        }
+                    ]
+                },
+                {
+                    "name": "state",
+                    "expression": "state",
+                    "generated_expression": "SELECT state FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT state FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": [
+                        {
+                            "name": "state",
+                            "expression": "COALESCE(\"mb\".\"state\", 'default')",
+                            "generated_expression": "COALESCE(\"mb\".\"state\", 'default')",
+                            "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "state",
+                                    "expression": "state",
+                                    "generated_expression": "LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                                    "source_expression": "LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "custom_col",
+                    "expression": "custom_col",
+                    "generated_expression": "SELECT custom_col FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "source_expression": "SELECT custom_col FROM \"catalog\".\"schema1\".\"customer_metric\" AS \"c\"",
+                    "node_type": "Column",
+                    "children": [],
+                    "downstreams": []
+                }
+            ],
+            "downstreams": [
+                {
+                    "name": "d",
+                    "expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                    "generated_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                    "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                    "node_type": "Subquery",
+                    "children": [
+                        {
+                            "name": "name",
+                            "expression": "\"c\".\"name\"",
+                            "generated_expression": "\"c\".\"name\"",
+                            "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "name",
+                                    "expression": "name",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "phone",
+                            "expression": "\"c\".\"phone\"",
+                            "generated_expression": "\"c\".\"phone\"",
+                            "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "phone",
+                                    "expression": "phone",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "address",
+                            "expression": "NULL",
+                            "generated_expression": "NULL",
+                            "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "state",
+                            "expression": "COALESCE(\"mb\".\"state\", 'default')",
+                            "generated_expression": "COALESCE(\"mb\".\"state\", 'default')",
+                            "source_expression": "SELECT \"c\".\"name\" AS \"name\", \"c\".\"phone\" AS \"phone\", NULL AS \"address\", COALESCE(\"mb\".\"state\", 'default') AS \"state\" FROM \"catalog\".\"schema1\".\"customer\" AS \"c\" LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                            "node_type": "Column",
+                            "children": [],
+                            "downstreams": [
+                                {
+                                    "name": "state",
+                                    "expression": "state",
+                                    "generated_expression": "LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                                    "source_expression": "LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ]
+                        }
+                    ],
+                    "downstreams": [
+                        {
+                            "name": "\"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                            "generated_expression": null,
+                            "source_expression": null,
+                            "node_type": "Table",
+                            "children": [
+                                {
+                                    "name": "id",
+                                    "expression": "id",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                },
+                                {
+                                    "name": "name",
+                                    "expression": "name",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                },
+                                {
+                                    "name": "phone",
+                                    "expression": "phone",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                },
+                                {
+                                    "name": "address",
+                                    "expression": "address",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                },
+                                {
+                                    "name": "location",
+                                    "expression": "location",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                },
+                                {
+                                    "name": "partition",
+                                    "expression": "partition",
+                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"c\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ],
+                            "downstreams": []
+                        },
+                        {
+                            "name": "\"catalog\".\"schema1\".\"metric_basis\" AS \"mb\"",
+                            "expression": "\"catalog\".\"schema1\".\"metric_basis\" AS \"mb\"",
+                            "generated_expression": null,
+                            "source_expression": null,
+                            "node_type": "Table",
+                            "children": [
+                                {
+                                    "name": "state",
+                                    "expression": "state",
+                                    "generated_expression": "LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                                    "source_expression": "LEFT JOIN \"catalog\".\"schema1\".\"metric_basis\" AS \"mb\" ON \"c\".\"address\" = \"mb\".\"address\"",
+                                    "node_type": "Column",
+                                    "children": [],
+                                    "downstreams": []
+                                }
+                            ],
+                            "downstreams": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
