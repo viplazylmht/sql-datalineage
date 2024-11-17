@@ -42,9 +42,9 @@ dev = [
 datalineage = "datalineage.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/viplazylmt/sql-datalineage"
-Source = "https://github.com/viplazylmt/sql-datalineage"
-Issues = "https://github.com/viplazylmt/sql-datalineage/issues"
+Homepage = "https://github.com/viplazylmht/sql-datalineage"
+Source = "https://github.com/viplazylmht/sql-datalineage"
+Issues = "https://github.com/viplazylmht/sql-datalineage/issues"
 
 [tool.setuptools]
 packages = ["datalineage"]
