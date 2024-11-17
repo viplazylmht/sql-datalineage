@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.13] - 2024-11-17
+### :boom: BREAKING CHANGES
+- due to [`6f5e0d1`](https://github.com/viplazylmht/sql-datalineage/commit/6f5e0d1ff80aa58692cc3c640133051471b8ee8e) - support merge statement *(commit by [@viplazylmht](https://github.com/viplazylmht))*:
+
+  support merge statement
+
+
+### :sparkles: New Features
+- [`6f5e0d1`](https://github.com/viplazylmht/sql-datalineage/commit/6f5e0d1ff80aa58692cc3c640133051471b8ee8e) - support merge statement *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+### :white_check_mark: Tests
+- [`59a3191`](https://github.com/viplazylmht/sql-datalineage/commit/59a3191850c42cbb56fcd7662b45e260d8475a1c) - add more test config for lineage test *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+
 ## [v0.0.12] - 2024-10-15
 ### :sparkles: New Features
 - [`d711767`](https://github.com/viplazylmht/sql-datalineage/commit/d71176769eed9131e401fb6b3fddedc154582f2b) - support parse lineage for scalar subquery *(commit by [@viplazylmht](https://github.com/viplazylmht))*
@@ -57,3 +71,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.10]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.9...v0.0.10
 [v0.0.11]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.10...v0.0.11
 [v0.0.12]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.11...v0.0.12
+[v0.0.13]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.12...v0.0.13
