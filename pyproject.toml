@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=64", "setuptools-scm>=8"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
 
 [project]
 name = "sql-datalineage"
@@ -26,17 +26,11 @@ dependencies = [
     "requests",
     "sqlglot[rs]",
     "pydantic==2.*",
+    "pyyaml>=6.0.2",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = [
-    "mypy",
-    "pre-commit",
-    "ruff==0.4.3",
-    "pyyaml",
-    "types-PyYAML",
-]
 
 [project.scripts]
 datalineage = "datalineage.cli:main"
@@ -52,3 +46,25 @@ packages = ["datalineage"]
 [tool.setuptools.dynamic]
 
 [tool.setuptools_scm]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/tests",
+  "/docs",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["datalineage"]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.13.0",
+    "pre-commit>=3.5.0",
+    "pyyaml>=6.0.2",
+    "ruff>=0.4.3",
+    "types-pyyaml>=6.0.12.20240917",
+]
