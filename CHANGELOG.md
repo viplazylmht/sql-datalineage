@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.14] - 2024-12-07
+### :sparkles: New Features
+- [`7b16533`](https://github.com/viplazylmht/sql-datalineage/commit/7b165334ec15af7a41086a7276eecbb8807143bc) - **build**: change build tools to uv, build backend to hatchling *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+### :bug: Bug Fixes
+- [`d23fc8d`](https://github.com/viplazylmht/sql-datalineage/commit/d23fc8d46c2ceef5bfa5f0510dbf0b5db8998469) - **pyproject**: fix project urls issues *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+
 ## [v0.0.13] - 2024-11-17
 ### :boom: BREAKING CHANGES
 - due to [`6f5e0d1`](https://github.com/viplazylmht/sql-datalineage/commit/6f5e0d1ff80aa58692cc3c640133051471b8ee8e) - support merge statement *(commit by [@viplazylmht](https://github.com/viplazylmht))*:
@@ -72,3 +80,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.11]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.10...v0.0.11
 [v0.0.12]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.11...v0.0.12
 [v0.0.13]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.12...v0.0.13
+[v0.0.14]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.13...v0.0.14
