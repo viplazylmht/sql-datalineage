@@ -1,16 +1,10 @@
-install:
-	pip install -e .
-
-install-dev:
-	pip install -e ".[dev]"
-
 install-pre-commit:
-	pre-commit install
+	uv run -- pre-commit install
 
 style:
-	pre-commit run --all-files
+	uv run -- pre-commit run --all-files
 
 test:
-	python -m unittest
+	uv run --no-project -- python -m unittest
 
 check: style test

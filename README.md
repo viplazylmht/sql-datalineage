@@ -216,8 +216,20 @@ end
 # Contribution
 
 ### Setup Environment
+We use [uv](https://github.com/astral-sh/uv) to manage the project. Please follow [the official document](https://docs.astral.sh/uv/getting-started/installation/#installation-methods) to install uv to your environment. 
+
+
+> [!TIP]
+> Your environment does not require any python or pip installed, but if you already have pip, you can quickly install uv like this: 
+> 
+> ```bash
+> pip install uv
+> ```
+
+
+Install pre-commit to your local git hooks.
 ```bash
-make install-dev
+make install-pre-commit
 ```
 
 ### Run Lint
@@ -228,4 +240,15 @@ make style
 ### Run Tests
 ```bash
 make test
+```
+
+
+### Run Lint and Tests
+```bash
+make check
+```
+
+### Run from local development
+```bash
+uv run --no-project -- datalineage --help
 ```
