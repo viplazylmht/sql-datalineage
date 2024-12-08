@@ -27,6 +27,7 @@ dependencies = [
     "sqlglot[rs]",
     "pydantic==2.*",
     "pyyaml>=6.0.2",
+    "sqlalchemy>=2.0.36",
 ]
 dynamic = ["version"]
 
