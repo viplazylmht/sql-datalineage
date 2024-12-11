@@ -1,5 +1,6 @@
 import unittest
 import os
+import gc
 import pathlib
 from sqlglot import exp
 from sqlalchemy import create_engine, text
@@ -12,7 +13,7 @@ class TestSqlalchemySchemaRetriever(unittest.TestCase):
 
     def setUp(self):
         self._sqlite_db_file_path = str(self.PATH / "database.db")
-        self._sqlite_engine = create_engine("sqlite:////{}".format(self._sqlite_db_file_path))
+        self._sqlite_engine = create_engine("sqlite:///{}".format(self._sqlite_db_file_path))
         with self._sqlite_engine.connect() as conn:
             conn.execute(
                 text("create table if not exists messages(id int, message text, send_on timestamp)")
@@ -23,11 +24,14 @@ class TestSqlalchemySchemaRetriever(unittest.TestCase):
                 )
             )
 
-        self._sqlite_create_engine_params = ("sqlite:////{}".format(self._sqlite_db_file_path),)
+        self._sqlite_create_engine_params = ("sqlite:///{}".format(self._sqlite_db_file_path),)
 
         return super().setUp()
 
     def tearDown(self):
+        del self._sqlite_engine
+        # force collect gc to be able to remove the db file on Windows
+        gc.collect()
         if os.path.isfile(self._sqlite_db_file_path):
             os.remove(self._sqlite_db_file_path)
 
