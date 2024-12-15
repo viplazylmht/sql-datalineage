@@ -25,7 +25,6 @@ logger = setup_logger(__name__)
 )
 @click.option(
     "--schema-path",
-    prompt="Path to schema json file",
     help="Path to schema json file, which contains sqlglot schema.",
 )
 def make_lineage(input, output, renderer, dialect, schema_path):
