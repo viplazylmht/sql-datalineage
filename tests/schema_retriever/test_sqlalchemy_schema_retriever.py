@@ -5,10 +5,11 @@ import pathlib
 from sqlglot import exp
 from sqlalchemy import create_engine, text
 
+from .test_schema_retriever import TestSchemaRetriever
 from datalineage.schema_retriever.sqlalchemy_schema_retriever import SQLAlchemySchemaRetriever
 
 
-class TestSqlalchemySchemaRetriever(unittest.TestCase):
+class TestSqlalchemySchemaRetriever(TestSchemaRetriever):
     PATH = pathlib.Path(__file__).parent.resolve()
 
     def setUp(self):
@@ -50,15 +51,53 @@ class TestSqlalchemySchemaRetriever(unittest.TestCase):
             dialect=dialect,
         )
 
-        self.assertEqual(
-            schema.column_names(table=message_table, dialect=dialect),
-            ["id", "message", "send_on"],
+        self.validate_column_names(
+            schema=schema,
+            table=message_table,
+            dialect=dialect,
+            column_names={"id", "message", "send_on"},
         )
-        self.assertEqual(
-            schema.column_names(table=profile_table, dialect=dialect),
-            ["id", "name", "phone", "email"],
+        self.validate_column_names(
+            schema=schema,
+            table=profile_table,
+            dialect=dialect,
+            column_names={"id", "name", "phone", "email"},
         )
-        self.assertEqual(schema.column_names(table=unknown_table, dialect=dialect), [])
+        self.validate_column_names(
+            schema=schema, table=unknown_table, dialect=dialect, column_names=set([])
+        )
+
+        self.validate_column_type(
+            schema=schema,
+            table=message_table,
+            dialect=dialect,
+            column="id",
+            column_type=exp.DataType.build(dtype="int", dialect=dialect),
+        )
+
+        self.validate_column_type(
+            schema=schema,
+            table=message_table,
+            dialect=dialect,
+            column="send_on",
+            column_type=exp.DataType.build(dtype="timestamp", dialect=dialect),
+        )
+
+        self.validate_column_type(
+            schema=schema,
+            table=profile_table,
+            dialect=dialect,
+            column="email",
+            column_type=exp.DataType.build(dtype="text", dialect=dialect),
+        )
+
+        self.validate_column_type(
+            schema=schema,
+            table=unknown_table,
+            dialect=dialect,
+            column="id",
+            column_type=exp.DataType.build(dtype=exp.DataType.Type.UNKNOWN),
+        )
 
     def test_retrieve_schema(self):
         with self.subTest("test retrieve schema sqlite from engine"):
