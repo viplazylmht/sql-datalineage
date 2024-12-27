@@ -1,7 +1,7 @@
 from datalineage.serializer.serializer import Serializer
 from datalineage.lineage import lineage, Node
 
-
+import unittest
 from typing import TypeVar
 from unittest import TestCase
 
@@ -37,3 +37,7 @@ class TestSerializer(TestCase):
         self.validate_serializer(
             serializer=node_serializer, input=node_data, expected_output=node_data
         )
+
+
+if __name__ == "__main__":
+    unittest.main()
