@@ -1,683 +1,371 @@
 {
-    "name": "myroot",
-    "expression": "ANCHOR",
-    "generated_expression": "INSERT INTO \"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-    "source_expression": "INSERT INTO \"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-    "node_type": "Select",
-    "children": [],
-    "downstreams": [
-        {
+    "nodes": {
+        "12288074547478271441": {
+            "name": "myroot",
+            "expression": "ANCHOR",
+            "generated_expression": "INSERT INTO \"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "source_expression": "INSERT INTO \"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\") WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "node_type": "Select",
+            "parent_id": null
+        },
+        "12518755719971936358": {
             "name": "\"latest_customer\"",
             "expression": "\"latest_customer\"",
             "generated_expression": null,
             "source_expression": null,
             "node_type": "Table",
-            "children": [
-                {
-                    "name": "location",
-                    "expression": "\"location\"",
-                    "generated_expression": "\"location\"",
-                    "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "location",
-                            "expression": "\"cte1\".\"location\"",
-                            "generated_expression": "\"cte1\".\"location\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "location",
-                                    "expression": "\"customer\".\"location\"",
-                                    "generated_expression": "\"customer\".\"location\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "location",
-                                            "expression": "location",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "address",
-                    "expression": "\"address\"",
-                    "generated_expression": "\"address\"",
-                    "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "address",
-                            "expression": "\"cte1\".\"address\"",
-                            "generated_expression": "\"cte1\".\"address\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "address",
-                                    "expression": "\"customer\".\"address\"",
-                                    "generated_expression": "\"customer\".\"address\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "name",
-                    "expression": "\"name\"",
-                    "generated_expression": "\"name\"",
-                    "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "name",
-                            "expression": "\"cte2\".\"name\"",
-                            "generated_expression": "\"cte2\".\"name\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "name",
-                                    "expression": "\"latest_customer\".\"name\"",
-                                    "generated_expression": "\"latest_customer\".\"name\"",
-                                    "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "latest_phone",
-                    "expression": "\"latest_phone\"",
-                    "generated_expression": "\"latest_phone\"",
-                    "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "phone",
-                            "expression": "\"cte1\".\"phone\"",
-                            "generated_expression": "\"cte1\".\"phone\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "phone",
-                                    "expression": "\"customer\".\"phone\"",
-                                    "generated_expression": "\"customer\".\"phone\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "new_id",
-                    "expression": "\"new_id\"",
-                    "generated_expression": "\"new_id\"",
-                    "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "id",
-                            "expression": "\"cte1\".\"id\"",
-                            "generated_expression": "\"cte1\".\"id\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "id",
-                                    "expression": "\"customer\".\"id\"",
-                                    "generated_expression": "\"customer\".\"id\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "partition",
-                    "expression": "partition",
-                    "generated_expression": "SELECT partition FROM \"latest_customer\"",
-                    "source_expression": "SELECT partition FROM \"latest_customer\"",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": []
-                }
-            ],
-            "downstreams": [
-                {
-                    "name": "_output_",
-                    "expression": "catalog.myschema.ROOT_TABLE",
-                    "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                    "node_type": "Select",
-                    "children": [
-                        {
-                            "name": "location",
-                            "expression": "\"cte1\".\"location\"",
-                            "generated_expression": "\"cte1\".\"location\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "location",
-                                    "expression": "\"customer\".\"location\"",
-                                    "generated_expression": "\"customer\".\"location\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "location",
-                                            "expression": "location",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "address",
-                            "expression": "\"cte1\".\"address\"",
-                            "generated_expression": "\"cte1\".\"address\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "address",
-                                    "expression": "\"customer\".\"address\"",
-                                    "generated_expression": "\"customer\".\"address\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "name",
-                            "expression": "\"cte2\".\"name\"",
-                            "generated_expression": "\"cte2\".\"name\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "name",
-                                    "expression": "\"latest_customer\".\"name\"",
-                                    "generated_expression": "\"latest_customer\".\"name\"",
-                                    "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "phone",
-                            "expression": "\"cte1\".\"phone\"",
-                            "generated_expression": "\"cte1\".\"phone\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "phone",
-                                    "expression": "\"customer\".\"phone\"",
-                                    "generated_expression": "\"customer\".\"phone\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "id",
-                            "expression": "\"cte1\".\"id\"",
-                            "generated_expression": "\"cte1\".\"id\"",
-                            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "id",
-                                    "expression": "\"customer\".\"id\"",
-                                    "generated_expression": "\"customer\".\"id\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "downstreams": [
-                        {
-                            "name": "\"cte1\" AS \"cte1\"",
-                            "expression": "\"customer\" AS \"customer\"",
-                            "generated_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                            "node_type": "CTE",
-                            "children": [
-                                {
-                                    "name": "id",
-                                    "expression": "\"customer\".\"id\"",
-                                    "generated_expression": "\"customer\".\"id\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "name",
-                                    "expression": "\"customer\".\"name\"",
-                                    "generated_expression": "\"customer\".\"name\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "phone",
-                                    "expression": "\"customer\".\"phone\"",
-                                    "generated_expression": "\"customer\".\"phone\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "location",
-                                    "expression": "\"customer\".\"location\"",
-                                    "generated_expression": "\"customer\".\"location\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "location",
-                                            "expression": "location",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "address",
-                                    "expression": "\"customer\".\"address\"",
-                                    "generated_expression": "\"customer\".\"address\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ],
-                            "downstreams": [
-                                {
-                                    "name": "\"customer\" AS \"customer\"",
-                                    "expression": "\"customer\" AS \"customer\"",
-                                    "generated_expression": null,
-                                    "source_expression": null,
-                                    "node_type": "Table",
-                                    "children": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "location",
-                                            "expression": "location",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "partition",
-                                            "expression": "partition",
-                                            "generated_expression": "FROM \"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ],
-                                    "downstreams": []
-                                }
-                            ]
-                        },
-                        {
-                            "name": "\"cte2\" AS \"cte2\"",
-                            "expression": "\"latest_customer\" AS \"latest_customer\"",
-                            "generated_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
-                            "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
-                            "node_type": "CTE",
-                            "children": [
-                                {
-                                    "name": "new_id",
-                                    "expression": "\"latest_customer\".\"new_id\"",
-                                    "generated_expression": "\"latest_customer\".\"new_id\"",
-                                    "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "new_id",
-                                            "expression": "new_id",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "name",
-                                    "expression": "\"latest_customer\".\"name\"",
-                                    "generated_expression": "\"latest_customer\".\"name\"",
-                                    "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "latest_phone",
-                                    "expression": "\"latest_customer\".\"latest_phone\"",
-                                    "generated_expression": "\"latest_customer\".\"latest_phone\"",
-                                    "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "latest_phone",
-                                            "expression": "latest_phone",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ],
-                            "downstreams": [
-                                {
-                                    "name": "\"latest_customer\" AS \"latest_customer\"",
-                                    "expression": "\"latest_customer\" AS \"latest_customer\"",
-                                    "generated_expression": null,
-                                    "source_expression": null,
-                                    "node_type": "Table",
-                                    "children": [
-                                        {
-                                            "name": "new_id",
-                                            "expression": "new_id",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "latest_phone",
-                                            "expression": "latest_phone",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "partition",
-                                            "expression": "partition",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "location",
-                                            "expression": "location",
-                                            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ],
-                                    "downstreams": []
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            "parent_id": null
+        },
+        "7663859624002538537": {
+            "name": "location",
+            "expression": "\"location\"",
+            "generated_expression": "\"location\"",
+            "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "6872101481691089673": {
+            "name": "address",
+            "expression": "\"address\"",
+            "generated_expression": "\"address\"",
+            "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "3164333290046770086": {
+            "name": "name",
+            "expression": "\"name\"",
+            "generated_expression": "\"name\"",
+            "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "7380825726226648460": {
+            "name": "latest_phone",
+            "expression": "\"latest_phone\"",
+            "generated_expression": "\"latest_phone\"",
+            "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "625599154418320709": {
+            "name": "new_id",
+            "expression": "\"new_id\"",
+            "generated_expression": "\"new_id\"",
+            "source_expression": "\"latest_customer\" (\"location\", \"address\", \"name\", \"latest_phone\", \"new_id\")",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "8687815156720829125": {
+            "name": "partition",
+            "expression": "partition",
+            "generated_expression": "SELECT partition FROM \"latest_customer\"",
+            "source_expression": "SELECT partition FROM \"latest_customer\"",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "12781564248279222199": {
+            "name": "_output_",
+            "expression": "catalog.myschema.ROOT_TABLE",
+            "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "node_type": "Select",
+            "parent_id": null
+        },
+        "593419893070786534": {
+            "name": "location",
+            "expression": "\"cte1\".\"location\"",
+            "generated_expression": "\"cte1\".\"location\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "node_type": "Column",
+            "parent_id": 12781564248279222199
+        },
+        "11528535578903699516": {
+            "name": "address",
+            "expression": "\"cte1\".\"address\"",
+            "generated_expression": "\"cte1\".\"address\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "node_type": "Column",
+            "parent_id": 12781564248279222199
+        },
+        "8734921787813111859": {
+            "name": "name",
+            "expression": "\"cte2\".\"name\"",
+            "generated_expression": "\"cte2\".\"name\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "node_type": "Column",
+            "parent_id": 12781564248279222199
+        },
+        "7875993303558310185": {
+            "name": "phone",
+            "expression": "\"cte1\".\"phone\"",
+            "generated_expression": "\"cte1\".\"phone\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "node_type": "Column",
+            "parent_id": 12781564248279222199
+        },
+        "14530472015912993560": {
+            "name": "id",
+            "expression": "\"cte1\".\"id\"",
+            "generated_expression": "\"cte1\".\"id\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1), \"cte2\" AS (SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1) SELECT \"cte1\".\"location\" AS \"location\", \"cte1\".\"address\" AS \"address\", \"cte2\".\"name\" AS \"name\", \"cte1\".\"phone\" AS \"phone\", \"cte1\".\"id\" AS \"id\" FROM \"cte1\" AS \"cte1\" LEFT JOIN \"cte2\" AS \"cte2\" ON \"cte1\".\"id\" = \"cte2\".\"new_id\"",
+            "node_type": "Column",
+            "parent_id": 12781564248279222199
+        },
+        "7032319084992933206": {
+            "name": "\"cte1\" AS \"cte1\"",
+            "expression": "\"customer\" AS \"customer\"",
+            "generated_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
+            "node_type": "CTE",
+            "parent_id": null
+        },
+        "12655044658914575944": {
+            "name": "id",
+            "expression": "\"customer\".\"id\"",
+            "generated_expression": "\"customer\".\"id\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
+            "node_type": "Column",
+            "parent_id": 7032319084992933206
+        },
+        "17930144329321036427": {
+            "name": "name",
+            "expression": "\"customer\".\"name\"",
+            "generated_expression": "\"customer\".\"name\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
+            "node_type": "Column",
+            "parent_id": 7032319084992933206
+        },
+        "10164503007190799865": {
+            "name": "phone",
+            "expression": "\"customer\".\"phone\"",
+            "generated_expression": "\"customer\".\"phone\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
+            "node_type": "Column",
+            "parent_id": 7032319084992933206
+        },
+        "7996705598917168964": {
+            "name": "location",
+            "expression": "\"customer\".\"location\"",
+            "generated_expression": "\"customer\".\"location\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
+            "node_type": "Column",
+            "parent_id": 7032319084992933206
+        },
+        "6487940864936353505": {
+            "name": "address",
+            "expression": "\"customer\".\"address\"",
+            "generated_expression": "\"customer\".\"address\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"location\" AS \"location\", \"customer\".\"address\" AS \"address\" FROM \"customer\" AS \"customer\" WHERE \"customer\".\"partition\" = 1",
+            "node_type": "Column",
+            "parent_id": 7032319084992933206
+        },
+        "14897600639072934434": {
+            "name": "\"customer\" AS \"customer\"",
+            "expression": "\"customer\" AS \"customer\"",
+            "generated_expression": null,
+            "source_expression": null,
+            "node_type": "Table",
+            "parent_id": null
+        },
+        "4683185340466548534": {
+            "name": "id",
+            "expression": "id",
+            "generated_expression": "FROM \"customer\" AS \"customer\"",
+            "source_expression": "FROM \"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 14897600639072934434
+        },
+        "12285285468956158975": {
+            "name": "name",
+            "expression": "name",
+            "generated_expression": "FROM \"customer\" AS \"customer\"",
+            "source_expression": "FROM \"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 14897600639072934434
+        },
+        "12236860062179042789": {
+            "name": "phone",
+            "expression": "phone",
+            "generated_expression": "FROM \"customer\" AS \"customer\"",
+            "source_expression": "FROM \"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 14897600639072934434
+        },
+        "13227740390027708127": {
+            "name": "address",
+            "expression": "address",
+            "generated_expression": "FROM \"customer\" AS \"customer\"",
+            "source_expression": "FROM \"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 14897600639072934434
+        },
+        "11761501934611885652": {
+            "name": "location",
+            "expression": "location",
+            "generated_expression": "FROM \"customer\" AS \"customer\"",
+            "source_expression": "FROM \"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 14897600639072934434
+        },
+        "12658517238252838690": {
+            "name": "partition",
+            "expression": "partition",
+            "generated_expression": "FROM \"customer\" AS \"customer\"",
+            "source_expression": "FROM \"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 14897600639072934434
+        },
+        "18159620222519401467": {
+            "name": "\"cte2\" AS \"cte2\"",
+            "expression": "\"latest_customer\" AS \"latest_customer\"",
+            "generated_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
+            "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
+            "node_type": "CTE",
+            "parent_id": null
+        },
+        "2109680151251042556": {
+            "name": "new_id",
+            "expression": "\"latest_customer\".\"new_id\"",
+            "generated_expression": "\"latest_customer\".\"new_id\"",
+            "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
+            "node_type": "Column",
+            "parent_id": 18159620222519401467
+        },
+        "16657214775738385802": {
+            "name": "name",
+            "expression": "\"latest_customer\".\"name\"",
+            "generated_expression": "\"latest_customer\".\"name\"",
+            "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
+            "node_type": "Column",
+            "parent_id": 18159620222519401467
+        },
+        "14000173884058006379": {
+            "name": "latest_phone",
+            "expression": "\"latest_customer\".\"latest_phone\"",
+            "generated_expression": "\"latest_customer\".\"latest_phone\"",
+            "source_expression": "SELECT \"latest_customer\".\"new_id\" AS \"new_id\", \"latest_customer\".\"name\" AS \"name\", \"latest_customer\".\"latest_phone\" AS \"latest_phone\" FROM \"latest_customer\" AS \"latest_customer\" WHERE \"latest_customer\".\"partition\" = 1",
+            "node_type": "Column",
+            "parent_id": 18159620222519401467
+        },
+        "5841201443961199897": {
+            "name": "\"latest_customer\" AS \"latest_customer\"",
+            "expression": "\"latest_customer\" AS \"latest_customer\"",
+            "generated_expression": null,
+            "source_expression": null,
+            "node_type": "Table",
+            "parent_id": null
+        },
+        "18336040482771159863": {
+            "name": "new_id",
+            "expression": "new_id",
+            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "node_type": "Column",
+            "parent_id": 5841201443961199897
+        },
+        "10463383988343904994": {
+            "name": "name",
+            "expression": "name",
+            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "node_type": "Column",
+            "parent_id": 5841201443961199897
+        },
+        "8377482852449116922": {
+            "name": "latest_phone",
+            "expression": "latest_phone",
+            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "node_type": "Column",
+            "parent_id": 5841201443961199897
+        },
+        "6196017752064451720": {
+            "name": "address",
+            "expression": "address",
+            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "node_type": "Column",
+            "parent_id": 5841201443961199897
+        },
+        "11388009249534081827": {
+            "name": "partition",
+            "expression": "partition",
+            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "node_type": "Column",
+            "parent_id": 5841201443961199897
+        },
+        "14720342028598560953": {
+            "name": "location",
+            "expression": "location",
+            "generated_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "source_expression": "FROM \"latest_customer\" AS \"latest_customer\"",
+            "node_type": "Column",
+            "parent_id": 5841201443961199897
         }
-    ]
+    },
+    "edges": {
+        "12288074547478271441": [
+            12518755719971936358
+        ],
+        "12518755719971936358": [
+            12781564248279222199
+        ],
+        "12781564248279222199": [
+            7032319084992933206,
+            18159620222519401467
+        ],
+        "7032319084992933206": [
+            14897600639072934434
+        ],
+        "18159620222519401467": [
+            5841201443961199897
+        ]
+    },
+    "children": {
+        "12518755719971936358": [
+            7663859624002538537,
+            6872101481691089673,
+            3164333290046770086,
+            7380825726226648460,
+            625599154418320709,
+            8687815156720829125
+        ],
+        "12781564248279222199": [
+            593419893070786534,
+            11528535578903699516,
+            8734921787813111859,
+            7875993303558310185,
+            14530472015912993560
+        ],
+        "7032319084992933206": [
+            12655044658914575944,
+            17930144329321036427,
+            10164503007190799865,
+            7996705598917168964,
+            6487940864936353505
+        ],
+        "14897600639072934434": [
+            4683185340466548534,
+            12285285468956158975,
+            12236860062179042789,
+            13227740390027708127,
+            11761501934611885652,
+            12658517238252838690
+        ],
+        "18159620222519401467": [
+            2109680151251042556,
+            16657214775738385802,
+            14000173884058006379
+        ],
+        "5841201443961199897": [
+            18336040482771159863,
+            10463383988343904994,
+            8377482852449116922,
+            6196017752064451720,
+            11388009249534081827,
+            14720342028598560953
+        ]
+    }
 }
