@@ -1,1271 +1,482 @@
 {
-    "name": "myroot",
-    "expression": "ANCHOR",
-    "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-    "node_type": "Select",
-    "children": [],
-    "downstreams": [
-        {
+    "nodes": {
+        "16350984795315903002": {
+            "name": "myroot",
+            "expression": "ANCHOR",
+            "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "node_type": "Select",
+            "parent_id": null
+        },
+        "7330780366353446715": {
             "name": "_output_",
             "expression": "catalog.myschema.ROOT_TABLE",
             "generated_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
             "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
             "node_type": "Select",
-            "children": [
-                {
-                    "name": "id",
-                    "expression": "\"_q_0\".\"id\"",
-                    "generated_expression": "\"_q_0\".\"id\"",
-                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "id",
-                            "expression": "\"t1\".\"id\"",
-                            "generated_expression": "\"t1\".\"id\"",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "id",
-                                    "expression": "\"customer\".\"id\"",
-                                    "generated_expression": "\"customer\".\"id\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "name",
-                    "expression": "\"_q_0\".\"name\"",
-                    "generated_expression": "\"_q_0\".\"name\"",
-                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "name",
-                            "expression": "\"t1\".\"name\"",
-                            "generated_expression": "\"t1\".\"name\"",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "name",
-                                    "expression": "\"customer\".\"name\"",
-                                    "generated_expression": "\"customer\".\"name\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "phone",
-                    "expression": "\"_q_0\".\"phone\"",
-                    "generated_expression": "\"_q_0\".\"phone\"",
-                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "phone",
-                            "expression": "\"t1\".\"phone\"",
-                            "generated_expression": "\"t1\".\"phone\"",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "phone",
-                                    "expression": "\"customer\".\"phone\"",
-                                    "generated_expression": "\"customer\".\"phone\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "address",
-                    "expression": "\"_q_0\".\"address\"",
-                    "generated_expression": "\"_q_0\".\"address\"",
-                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "address",
-                            "expression": "\"t1\".\"address\"",
-                            "generated_expression": "\"t1\".\"address\"",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "address",
-                                    "expression": "\"customer\".\"address\"",
-                                    "generated_expression": "\"customer\".\"address\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "full_name",
-                    "expression": "\"_q_0\".\"full_name\"",
-                    "generated_expression": "\"_q_0\".\"full_name\"",
-                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "full_name",
-                            "expression": "CONCAT(\"t1\".\"name\", \"t2\".\"name\")",
-                            "generated_expression": "CONCAT(\"t1\".\"name\", \"t2\".\"name\")",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "name",
-                                    "expression": "\"customer\".\"name\"",
-                                    "generated_expression": "\"customer\".\"name\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "name",
-                                    "expression": "\"tmp_cte\".\"name\"",
-                                    "generated_expression": "\"tmp_cte\".\"name\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "\"user_demographics\".\"name\"",
-                                            "generated_expression": "\"user_demographics\".\"name\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "name",
-                                                    "expression": "name",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "max_age",
-                    "expression": "\"_q_0\".\"max_age\"",
-                    "generated_expression": "\"_q_0\".\"max_age\"",
-                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "max_age",
-                            "expression": "MAX(\"t2\".\"age\")",
-                            "generated_expression": "MAX(\"t2\".\"age\")",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "age",
-                                    "expression": "\"tmp_cte\".\"age\"",
-                                    "generated_expression": "\"tmp_cte\".\"age\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "age",
-                                            "expression": "\"user_demographics\".\"age\"",
-                                            "generated_expression": "\"user_demographics\".\"age\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "age",
-                                                    "expression": "age",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "maxid",
-                    "expression": "\"_q_0\".\"maxid\"",
-                    "generated_expression": "\"_q_0\".\"maxid\"",
-                    "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": [
-                        {
-                            "name": "maxid",
-                            "expression": "(SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\")",
-                            "generated_expression": "(SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\")",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "Scalar subquery",
-                                    "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "generated_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "source_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "node_type": "Select",
-                                    "children": [
-                                        {
-                                            "name": "max_id",
-                                            "expression": "MAX(\"customer\".\"id\")",
-                                            "generated_expression": "MAX(\"customer\".\"id\")",
-                                            "source_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "id",
-                                                    "expression": "id",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ],
-                                    "downstreams": [
-                                        {
-                                            "name": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "generated_expression": null,
-                                            "source_expression": null,
-                                            "node_type": "Table",
-                                            "children": [
-                                                {
-                                                    "name": "id",
-                                                    "expression": "id",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "name",
-                                                    "expression": "name",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "phone",
-                                                    "expression": "phone",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "address",
-                                                    "expression": "address",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "location",
-                                                    "expression": "location",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "downstreams": [
-                {
-                    "name": "_q_0",
-                    "expression": "(SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\"",
-                    "generated_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                    "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                    "node_type": "Subquery",
-                    "children": [
-                        {
-                            "name": "id",
-                            "expression": "\"t1\".\"id\"",
-                            "generated_expression": "\"t1\".\"id\"",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "id",
-                                    "expression": "\"customer\".\"id\"",
-                                    "generated_expression": "\"customer\".\"id\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "name",
-                            "expression": "\"t1\".\"name\"",
-                            "generated_expression": "\"t1\".\"name\"",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "name",
-                                    "expression": "\"customer\".\"name\"",
-                                    "generated_expression": "\"customer\".\"name\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "phone",
-                            "expression": "\"t1\".\"phone\"",
-                            "generated_expression": "\"t1\".\"phone\"",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "phone",
-                                    "expression": "\"customer\".\"phone\"",
-                                    "generated_expression": "\"customer\".\"phone\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "address",
-                            "expression": "\"t1\".\"address\"",
-                            "generated_expression": "\"t1\".\"address\"",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "address",
-                                    "expression": "\"customer\".\"address\"",
-                                    "generated_expression": "\"customer\".\"address\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "full_name",
-                            "expression": "CONCAT(\"t1\".\"name\", \"t2\".\"name\")",
-                            "generated_expression": "CONCAT(\"t1\".\"name\", \"t2\".\"name\")",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "name",
-                                    "expression": "\"customer\".\"name\"",
-                                    "generated_expression": "\"customer\".\"name\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "name",
-                                    "expression": "\"tmp_cte\".\"name\"",
-                                    "generated_expression": "\"tmp_cte\".\"name\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "\"user_demographics\".\"name\"",
-                                            "generated_expression": "\"user_demographics\".\"name\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "name",
-                                                    "expression": "name",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "max_age",
-                            "expression": "MAX(\"t2\".\"age\")",
-                            "generated_expression": "MAX(\"t2\".\"age\")",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "age",
-                                    "expression": "\"tmp_cte\".\"age\"",
-                                    "generated_expression": "\"tmp_cte\".\"age\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "age",
-                                            "expression": "\"user_demographics\".\"age\"",
-                                            "generated_expression": "\"user_demographics\".\"age\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "age",
-                                                    "expression": "age",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "maxid",
-                            "expression": "(SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\")",
-                            "generated_expression": "(SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\")",
-                            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
-                            "node_type": "Column",
-                            "children": [],
-                            "downstreams": [
-                                {
-                                    "name": "Scalar subquery",
-                                    "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "generated_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "source_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "node_type": "Select",
-                                    "children": [
-                                        {
-                                            "name": "max_id",
-                                            "expression": "MAX(\"customer\".\"id\")",
-                                            "generated_expression": "MAX(\"customer\".\"id\")",
-                                            "source_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "id",
-                                                    "expression": "id",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ],
-                                    "downstreams": [
-                                        {
-                                            "name": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "generated_expression": null,
-                                            "source_expression": null,
-                                            "node_type": "Table",
-                                            "children": [
-                                                {
-                                                    "name": "id",
-                                                    "expression": "id",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "name",
-                                                    "expression": "name",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "phone",
-                                                    "expression": "phone",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "address",
-                                                    "expression": "address",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "location",
-                                                    "expression": "location",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "downstreams": [
-                        {
-                            "name": "\"cte1\" AS \"t1\"",
-                            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                            "generated_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                            "node_type": "CTE",
-                            "children": [
-                                {
-                                    "name": "id",
-                                    "expression": "\"customer\".\"id\"",
-                                    "generated_expression": "\"customer\".\"id\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "name",
-                                    "expression": "\"customer\".\"name\"",
-                                    "generated_expression": "\"customer\".\"name\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "phone",
-                                    "expression": "\"customer\".\"phone\"",
-                                    "generated_expression": "\"customer\".\"phone\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "address",
-                                    "expression": "\"customer\".\"address\"",
-                                    "generated_expression": "\"customer\".\"address\"",
-                                    "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ],
-                            "downstreams": [
-                                {
-                                    "name": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "generated_expression": null,
-                                    "source_expression": null,
-                                    "node_type": "Table",
-                                    "children": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "location",
-                                            "expression": "location",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ],
-                                    "downstreams": []
-                                }
-                            ]
-                        },
-                        {
-                            "name": "\"cte2\" AS \"t2\"",
-                            "expression": "\"tmp_cte\" AS \"tmp_cte\"",
-                            "generated_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                            "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                            "node_type": "CTE",
-                            "children": [
-                                {
-                                    "name": "id",
-                                    "expression": "\"tmp_cte\".\"id\"",
-                                    "generated_expression": "\"tmp_cte\".\"id\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "id",
-                                            "expression": "\"user_demographics\".\"id\"",
-                                            "generated_expression": "\"user_demographics\".\"id\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "id",
-                                                    "expression": "id",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "name",
-                                    "expression": "\"tmp_cte\".\"name\"",
-                                    "generated_expression": "\"tmp_cte\".\"name\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "name",
-                                            "expression": "\"user_demographics\".\"name\"",
-                                            "generated_expression": "\"user_demographics\".\"name\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "name",
-                                                    "expression": "name",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "age",
-                                    "expression": "\"tmp_cte\".\"age\"",
-                                    "generated_expression": "\"tmp_cte\".\"age\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "age",
-                                            "expression": "\"user_demographics\".\"age\"",
-                                            "generated_expression": "\"user_demographics\".\"age\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "age",
-                                                    "expression": "age",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "phone",
-                                    "expression": "\"tmp_cte\".\"phone\"",
-                                    "generated_expression": "\"tmp_cte\".\"phone\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "phone",
-                                            "expression": "\"user_demographics\".\"phone\"",
-                                            "generated_expression": "\"user_demographics\".\"phone\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "phone",
-                                                    "expression": "phone",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "job",
-                                    "expression": "\"tmp_cte\".\"customer_job\"",
-                                    "generated_expression": "\"tmp_cte\".\"customer_job\"",
-                                    "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "customer_job",
-                                            "expression": "\"user_demographics\".\"customer_job\"",
-                                            "generated_expression": "\"user_demographics\".\"customer_job\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "customer_job",
-                                                    "expression": "customer_job",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "downstreams": [
-                                {
-                                    "name": "\"tmp_cte\" AS \"tmp_cte\"",
-                                    "expression": "\"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                    "generated_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                    "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                    "node_type": "CTE",
-                                    "children": [
-                                        {
-                                            "name": "id",
-                                            "expression": "\"user_demographics\".\"id\"",
-                                            "generated_expression": "\"user_demographics\".\"id\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "id",
-                                                    "expression": "id",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "name",
-                                            "expression": "\"user_demographics\".\"name\"",
-                                            "generated_expression": "\"user_demographics\".\"name\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "name",
-                                                    "expression": "name",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "age",
-                                            "expression": "\"user_demographics\".\"age\"",
-                                            "generated_expression": "\"user_demographics\".\"age\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "age",
-                                                    "expression": "age",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "phone",
-                                            "expression": "\"user_demographics\".\"phone\"",
-                                            "generated_expression": "\"user_demographics\".\"phone\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "phone",
-                                                    "expression": "phone",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "customer_job",
-                                            "expression": "\"user_demographics\".\"customer_job\"",
-                                            "generated_expression": "\"user_demographics\".\"customer_job\"",
-                                            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": [
-                                                {
-                                                    "name": "customer_job",
-                                                    "expression": "customer_job",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ]
-                                        }
-                                    ],
-                                    "downstreams": [
-                                        {
-                                            "name": "\"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "expression": "\"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                            "generated_expression": null,
-                                            "source_expression": null,
-                                            "node_type": "Table",
-                                            "children": [
-                                                {
-                                                    "name": "id",
-                                                    "expression": "id",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "name",
-                                                    "expression": "name",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "age",
-                                                    "expression": "age",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "phone",
-                                                    "expression": "phone",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "customer_job",
-                                                    "expression": "customer_job",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                },
-                                                {
-                                                    "name": "parent",
-                                                    "expression": "parent",
-                                                    "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
-                                                    "node_type": "Column",
-                                                    "children": [],
-                                                    "downstreams": []
-                                                }
-                                            ],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "name": "Scalar subquery",
-                            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                            "generated_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                            "source_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                            "node_type": "Select",
-                            "children": [
-                                {
-                                    "name": "max_id",
-                                    "expression": "MAX(\"customer\".\"id\")",
-                                    "generated_expression": "MAX(\"customer\".\"id\")",
-                                    "source_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "node_type": "Column",
-                                    "children": [],
-                                    "downstreams": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ]
-                                }
-                            ],
-                            "downstreams": [
-                                {
-                                    "name": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                    "generated_expression": null,
-                                    "source_expression": null,
-                                    "node_type": "Table",
-                                    "children": [
-                                        {
-                                            "name": "id",
-                                            "expression": "id",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "name",
-                                            "expression": "name",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "phone",
-                                            "expression": "phone",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "address",
-                                            "expression": "address",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        },
-                                        {
-                                            "name": "location",
-                                            "expression": "location",
-                                            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
-                                            "node_type": "Column",
-                                            "children": [],
-                                            "downstreams": []
-                                        }
-                                    ],
-                                    "downstreams": []
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            "parent_id": null
+        },
+        "2369324186034535932": {
+            "name": "id",
+            "expression": "\"_q_0\".\"id\"",
+            "generated_expression": "\"_q_0\".\"id\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "node_type": "Column",
+            "parent_id": 7330780366353446715
+        },
+        "7049583450599355667": {
+            "name": "name",
+            "expression": "\"_q_0\".\"name\"",
+            "generated_expression": "\"_q_0\".\"name\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "node_type": "Column",
+            "parent_id": 7330780366353446715
+        },
+        "4345468222728090012": {
+            "name": "phone",
+            "expression": "\"_q_0\".\"phone\"",
+            "generated_expression": "\"_q_0\".\"phone\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "node_type": "Column",
+            "parent_id": 7330780366353446715
+        },
+        "2763424457680594458": {
+            "name": "address",
+            "expression": "\"_q_0\".\"address\"",
+            "generated_expression": "\"_q_0\".\"address\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "node_type": "Column",
+            "parent_id": 7330780366353446715
+        },
+        "13043898860491568983": {
+            "name": "full_name",
+            "expression": "\"_q_0\".\"full_name\"",
+            "generated_expression": "\"_q_0\".\"full_name\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "node_type": "Column",
+            "parent_id": 7330780366353446715
+        },
+        "8760731111657453880": {
+            "name": "max_age",
+            "expression": "\"_q_0\".\"max_age\"",
+            "generated_expression": "\"_q_0\".\"max_age\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "node_type": "Column",
+            "parent_id": 7330780366353446715
+        },
+        "5274805440047679075": {
+            "name": "maxid",
+            "expression": "\"_q_0\".\"maxid\"",
+            "generated_expression": "\"_q_0\".\"maxid\"",
+            "source_expression": "WITH \"cte1\" AS (SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'), \"tmp_cte\" AS (SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"), \"cte2\" AS (SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"), \"cte3\" AS (SELECT \"tbl_cte3\".\"id\" AS \"id\", \"tbl_cte3\".\"name\" AS \"name\", \"tbl_cte3\".\"age\" AS \"age\", \"tbl_cte3\".\"phone\" AS \"phone\", \"tbl_cte3\".\"job\" AS \"job\" FROM \"catalog\".\"schema1\".\"tbl_cte3\" AS \"tbl_cte3\") SELECT \"_q_0\".\"id\" AS \"id\", \"_q_0\".\"name\" AS \"name\", \"_q_0\".\"phone\" AS \"phone\", \"_q_0\".\"address\" AS \"address\", \"_q_0\".\"full_name\" AS \"full_name\", \"_q_0\".\"max_age\" AS \"max_age\", \"_q_0\".\"maxid\" AS \"maxid\" FROM (SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\" WHERE \"_q_0\".\"id\" < 5",
+            "node_type": "Column",
+            "parent_id": 7330780366353446715
+        },
+        "1480411460825200843": {
+            "name": "_q_0",
+            "expression": "(SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10) AS \"_q_0\"",
+            "generated_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "node_type": "Subquery",
+            "parent_id": null
+        },
+        "14369315527220485175": {
+            "name": "id",
+            "expression": "\"t1\".\"id\"",
+            "generated_expression": "\"t1\".\"id\"",
+            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "node_type": "Column",
+            "parent_id": 1480411460825200843
+        },
+        "7813313169203600597": {
+            "name": "name",
+            "expression": "\"t1\".\"name\"",
+            "generated_expression": "\"t1\".\"name\"",
+            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "node_type": "Column",
+            "parent_id": 1480411460825200843
+        },
+        "1264840354409610512": {
+            "name": "phone",
+            "expression": "\"t1\".\"phone\"",
+            "generated_expression": "\"t1\".\"phone\"",
+            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "node_type": "Column",
+            "parent_id": 1480411460825200843
+        },
+        "16994287781987127459": {
+            "name": "address",
+            "expression": "\"t1\".\"address\"",
+            "generated_expression": "\"t1\".\"address\"",
+            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "node_type": "Column",
+            "parent_id": 1480411460825200843
+        },
+        "6334899608225064007": {
+            "name": "full_name",
+            "expression": "CONCAT(\"t1\".\"name\", \"t2\".\"name\")",
+            "generated_expression": "CONCAT(\"t1\".\"name\", \"t2\".\"name\")",
+            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "node_type": "Column",
+            "parent_id": 1480411460825200843
+        },
+        "11691112165929104308": {
+            "name": "max_age",
+            "expression": "MAX(\"t2\".\"age\")",
+            "generated_expression": "MAX(\"t2\".\"age\")",
+            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "node_type": "Column",
+            "parent_id": 1480411460825200843
+        },
+        "7879620629537867491": {
+            "name": "maxid",
+            "expression": "(SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\")",
+            "generated_expression": "(SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\")",
+            "source_expression": "SELECT \"t1\".\"id\" AS \"id\", \"t1\".\"name\" AS \"name\", \"t1\".\"phone\" AS \"phone\", \"t1\".\"address\" AS \"address\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") AS \"full_name\", MAX(\"t2\".\"age\") AS \"max_age\", (SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\") AS \"maxid\" FROM \"cte1\" AS \"t1\" LEFT JOIN \"cte2\" AS \"t2\" ON \"t1\".\"phone\" = \"t2\".\"phone\" GROUP BY \"t1\".\"id\", CONCAT(\"t1\".\"name\", \"t2\".\"name\") HAVING MAX(\"t2\".\"age\") > 10",
+            "node_type": "Column",
+            "parent_id": 1480411460825200843
+        },
+        "4507473409285345051": {
+            "name": "\"cte1\" AS \"t1\"",
+            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "generated_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
+            "node_type": "CTE",
+            "parent_id": null
+        },
+        "10272884136923205013": {
+            "name": "id",
+            "expression": "\"customer\".\"id\"",
+            "generated_expression": "\"customer\".\"id\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
+            "node_type": "Column",
+            "parent_id": 4507473409285345051
+        },
+        "17245649110553671778": {
+            "name": "name",
+            "expression": "\"customer\".\"name\"",
+            "generated_expression": "\"customer\".\"name\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
+            "node_type": "Column",
+            "parent_id": 4507473409285345051
+        },
+        "5308419161799639384": {
+            "name": "phone",
+            "expression": "\"customer\".\"phone\"",
+            "generated_expression": "\"customer\".\"phone\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
+            "node_type": "Column",
+            "parent_id": 4507473409285345051
+        },
+        "6803760761198231998": {
+            "name": "address",
+            "expression": "\"customer\".\"address\"",
+            "generated_expression": "\"customer\".\"address\"",
+            "source_expression": "SELECT \"customer\".\"id\" AS \"id\", \"customer\".\"name\" AS \"name\", \"customer\".\"phone\" AS \"phone\", \"customer\".\"address\" AS \"address\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\" WHERE \"customer\".\"name\" LIKE 'duy%'",
+            "node_type": "Column",
+            "parent_id": 4507473409285345051
+        },
+        "4268966526438662112": {
+            "name": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "generated_expression": null,
+            "source_expression": null,
+            "node_type": "Table",
+            "parent_id": null
+        },
+        "5236878093661038685": {
+            "name": "id",
+            "expression": "id",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 4268966526438662112
+        },
+        "1435282661164111962": {
+            "name": "name",
+            "expression": "name",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 4268966526438662112
+        },
+        "10887784210242626249": {
+            "name": "phone",
+            "expression": "phone",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 4268966526438662112
+        },
+        "2656738007850556460": {
+            "name": "address",
+            "expression": "address",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 4268966526438662112
+        },
+        "10286006258372629408": {
+            "name": "location",
+            "expression": "location",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 4268966526438662112
+        },
+        "1333079788050548230": {
+            "name": "\"cte2\" AS \"t2\"",
+            "expression": "\"tmp_cte\" AS \"tmp_cte\"",
+            "generated_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
+            "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
+            "node_type": "CTE",
+            "parent_id": null
+        },
+        "9729409177089451365": {
+            "name": "id",
+            "expression": "\"tmp_cte\".\"id\"",
+            "generated_expression": "\"tmp_cte\".\"id\"",
+            "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
+            "node_type": "Column",
+            "parent_id": 1333079788050548230
+        },
+        "7151062507654067874": {
+            "name": "name",
+            "expression": "\"tmp_cte\".\"name\"",
+            "generated_expression": "\"tmp_cte\".\"name\"",
+            "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
+            "node_type": "Column",
+            "parent_id": 1333079788050548230
+        },
+        "2004504822717528303": {
+            "name": "age",
+            "expression": "\"tmp_cte\".\"age\"",
+            "generated_expression": "\"tmp_cte\".\"age\"",
+            "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
+            "node_type": "Column",
+            "parent_id": 1333079788050548230
+        },
+        "1007747146096968484": {
+            "name": "phone",
+            "expression": "\"tmp_cte\".\"phone\"",
+            "generated_expression": "\"tmp_cte\".\"phone\"",
+            "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
+            "node_type": "Column",
+            "parent_id": 1333079788050548230
+        },
+        "16001638110751197873": {
+            "name": "job",
+            "expression": "\"tmp_cte\".\"customer_job\"",
+            "generated_expression": "\"tmp_cte\".\"customer_job\"",
+            "source_expression": "SELECT \"tmp_cte\".\"id\" AS \"id\", \"tmp_cte\".\"name\" AS \"name\", \"tmp_cte\".\"age\" AS \"age\", \"tmp_cte\".\"phone\" AS \"phone\", \"tmp_cte\".\"customer_job\" AS \"job\" FROM \"tmp_cte\" AS \"tmp_cte\"",
+            "node_type": "Column",
+            "parent_id": 1333079788050548230
+        },
+        "106520006120493841": {
+            "name": "\"tmp_cte\" AS \"tmp_cte\"",
+            "expression": "\"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "generated_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "CTE",
+            "parent_id": null
+        },
+        "1022664449863864144": {
+            "name": "id",
+            "expression": "\"user_demographics\".\"id\"",
+            "generated_expression": "\"user_demographics\".\"id\"",
+            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 106520006120493841
+        },
+        "2760653953610209330": {
+            "name": "name",
+            "expression": "\"user_demographics\".\"name\"",
+            "generated_expression": "\"user_demographics\".\"name\"",
+            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 106520006120493841
+        },
+        "17466192704016539432": {
+            "name": "age",
+            "expression": "\"user_demographics\".\"age\"",
+            "generated_expression": "\"user_demographics\".\"age\"",
+            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 106520006120493841
+        },
+        "9016933615603744964": {
+            "name": "phone",
+            "expression": "\"user_demographics\".\"phone\"",
+            "generated_expression": "\"user_demographics\".\"phone\"",
+            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 106520006120493841
+        },
+        "17491947744639933371": {
+            "name": "customer_job",
+            "expression": "\"user_demographics\".\"customer_job\"",
+            "generated_expression": "\"user_demographics\".\"customer_job\"",
+            "source_expression": "SELECT \"user_demographics\".\"id\" AS \"id\", \"user_demographics\".\"name\" AS \"name\", \"user_demographics\".\"age\" AS \"age\", \"user_demographics\".\"phone\" AS \"phone\", \"user_demographics\".\"customer_job\" AS \"customer_job\" FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 106520006120493841
+        },
+        "17772230212068505152": {
+            "name": "\"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "expression": "\"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "generated_expression": null,
+            "source_expression": null,
+            "node_type": "Table",
+            "parent_id": null
+        },
+        "18223017551442279303": {
+            "name": "id",
+            "expression": "id",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 17772230212068505152
+        },
+        "6501088148451127731": {
+            "name": "name",
+            "expression": "name",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 17772230212068505152
+        },
+        "4093474326762129000": {
+            "name": "age",
+            "expression": "age",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 17772230212068505152
+        },
+        "6636782535431838226": {
+            "name": "phone",
+            "expression": "phone",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 17772230212068505152
+        },
+        "1522593651987828411": {
+            "name": "customer_job",
+            "expression": "customer_job",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 17772230212068505152
+        },
+        "9708519275690747857": {
+            "name": "parent",
+            "expression": "parent",
+            "generated_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "source_expression": "FROM \"catalog\".\"schema1\".\"user_demographics\" AS \"user_demographics\"",
+            "node_type": "Column",
+            "parent_id": 17772230212068505152
+        },
+        "14630080389240195727": {
+            "name": "Scalar subquery",
+            "expression": "\"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "generated_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "source_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "node_type": "Select",
+            "parent_id": null
+        },
+        "10086943775435701908": {
+            "name": "max_id",
+            "expression": "MAX(\"customer\".\"id\")",
+            "generated_expression": "MAX(\"customer\".\"id\")",
+            "source_expression": "SELECT MAX(\"customer\".\"id\") AS \"max_id\" FROM \"catalog\".\"schema1\".\"customer\" AS \"customer\"",
+            "node_type": "Column",
+            "parent_id": 14630080389240195727
         }
-    ]
+    },
+    "edges": {
+        "16350984795315903002": [
+            7330780366353446715
+        ],
+        "7330780366353446715": [
+            1480411460825200843
+        ],
+        "1480411460825200843": [
+            4507473409285345051,
+            1333079788050548230,
+            14630080389240195727
+        ],
+        "4507473409285345051": [
+            4268966526438662112
+        ],
+        "1333079788050548230": [
+            106520006120493841
+        ],
+        "106520006120493841": [
+            17772230212068505152
+        ],
+        "14630080389240195727": [
+            4268966526438662112
+        ],
+        "7879620629537867491": [
+            14630080389240195727
+        ]
+    },
+    "children": {
+        "7330780366353446715": [
+            2369324186034535932,
+            7049583450599355667,
+            4345468222728090012,
+            2763424457680594458,
+            13043898860491568983,
+            8760731111657453880,
+            5274805440047679075
+        ],
+        "1480411460825200843": [
+            14369315527220485175,
+            7813313169203600597,
+            1264840354409610512,
+            16994287781987127459,
+            6334899608225064007,
+            11691112165929104308,
+            7879620629537867491
+        ],
+        "4507473409285345051": [
+            10272884136923205013,
+            17245649110553671778,
+            5308419161799639384,
+            6803760761198231998
+        ],
+        "4268966526438662112": [
+            5236878093661038685,
+            1435282661164111962,
+            10887784210242626249,
+            2656738007850556460,
+            10286006258372629408
+        ],
+        "1333079788050548230": [
+            9729409177089451365,
+            7151062507654067874,
+            2004504822717528303,
+            1007747146096968484,
+            16001638110751197873
+        ],
+        "106520006120493841": [
+            1022664449863864144,
+            2760653953610209330,
+            17466192704016539432,
+            9016933615603744964,
+            17491947744639933371
+        ],
+        "17772230212068505152": [
+            18223017551442279303,
+            6501088148451127731,
+            4093474326762129000,
+            6636782535431838226,
+            1522593651987828411,
+            9708519275690747857
+        ],
+        "14630080389240195727": [
+            10086943775435701908
+        ]
+    }
 }

@@ -1,65 +1,74 @@
 {
-    "name": "myroot",
-    "expression": "ANCHOR",
-    "generated_expression": "CREATE TABLE \"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
-    "source_expression": "CREATE TABLE \"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
-    "node_type": "Select",
-    "children": [],
-    "downstreams": [
-        {
+    "nodes": {
+        "13401939912950968894": {
+            "name": "myroot",
+            "expression": "ANCHOR",
+            "generated_expression": "CREATE TABLE \"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
+            "source_expression": "CREATE TABLE \"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
+            "node_type": "Select",
+            "parent_id": null
+        },
+        "12518755719971936358": {
             "name": "\"latest_customer\"",
             "expression": "\"latest_customer\"",
             "generated_expression": null,
             "source_expression": null,
             "node_type": "Table",
-            "children": [
-                {
-                    "name": "\"location\"",
-                    "expression": "\"location\" TEXT",
-                    "generated_expression": "\"location\" TEXT",
-                    "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": []
-                },
-                {
-                    "name": "\"address\"",
-                    "expression": "\"address\" TEXT",
-                    "generated_expression": "\"address\" TEXT",
-                    "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": []
-                },
-                {
-                    "name": "\"name\"",
-                    "expression": "\"name\" TEXT",
-                    "generated_expression": "\"name\" TEXT",
-                    "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": []
-                },
-                {
-                    "name": "\"latest_phone\"",
-                    "expression": "\"latest_phone\" INT",
-                    "generated_expression": "\"latest_phone\" INT",
-                    "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": []
-                },
-                {
-                    "name": "\"new_id\"",
-                    "expression": "\"new_id\" INT",
-                    "generated_expression": "\"new_id\" INT",
-                    "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
-                    "node_type": "Column",
-                    "children": [],
-                    "downstreams": []
-                }
-            ],
-            "downstreams": []
+            "parent_id": null
+        },
+        "7447361654430421198": {
+            "name": "\"location\"",
+            "expression": "\"location\" TEXT",
+            "generated_expression": "\"location\" TEXT",
+            "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "3372672514628272698": {
+            "name": "\"address\"",
+            "expression": "\"address\" TEXT",
+            "generated_expression": "\"address\" TEXT",
+            "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "1697013803341058348": {
+            "name": "\"name\"",
+            "expression": "\"name\" TEXT",
+            "generated_expression": "\"name\" TEXT",
+            "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "10227595710537112544": {
+            "name": "\"latest_phone\"",
+            "expression": "\"latest_phone\" INT",
+            "generated_expression": "\"latest_phone\" INT",
+            "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
+        },
+        "3418055054391080202": {
+            "name": "\"new_id\"",
+            "expression": "\"new_id\" INT",
+            "generated_expression": "\"new_id\" INT",
+            "source_expression": "\"latest_customer\" (\"location\" TEXT, \"address\" TEXT, \"name\" TEXT, \"latest_phone\" INT, \"new_id\" INT)",
+            "node_type": "Column",
+            "parent_id": 12518755719971936358
         }
-    ]
+    },
+    "edges": {
+        "13401939912950968894": [
+            12518755719971936358
+        ]
+    },
+    "children": {
+        "12518755719971936358": [
+            7447361654430421198,
+            3372672514628272698,
+            1697013803341058348,
+            10227595710537112544,
+            3418055054391080202
+        ]
+    }
 }
