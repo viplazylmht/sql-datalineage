@@ -6,7 +6,17 @@ from sqlglot.optimizer.qualify import qualify
 
 from typing import Dict, Optional, Any, Union, List
 
-from datalineage.node import Node, NodeType
+from datalineage.node import (
+    Node,
+    NodeType,
+    TableNode,
+    ColumnNode,
+    SelectNode,
+    UnionNode,
+    SubqueryNode,
+    CTENode,
+    UnknownNode,
+)
 from datalineage.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -59,21 +69,19 @@ def get_destination_node(ast: exp.Expression) -> Optional[Node]:
     if not table_exp:
         return None
 
-    dest_node = Node(
+    dest_node = TableNode(
         name=table_exp.sql(),
         expression=table_exp,
         generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
         source_expression=None,  # TODO: source_expression should be "FROM {Table}"
-        node_type=NodeType.TABLE,
     )
 
     for column in columns:
-        child_node = Node(
+        child_node = ColumnNode(
             name=column.this,
             expression=column,
             generated_expression=column,
             source_expression=dest_exp,
-            node_type=NodeType.COLUMN,
         )
         dest_node.add_child(child_node)
 
@@ -95,12 +103,11 @@ def get_scope(ast: Optional[exp.Expression]) -> Optional[Union[Scope, exp.Table]
 
 def build_table_column_node(table_node: Node, column_name: str) -> Node:
     table_column_select_expression = exp.select(column_name).from_(table_node.expression)
-    table_child = Node(
+    table_child = ColumnNode(
         name=column_name,
         expression=exp.to_identifier(column_name, quoted=False),
         generated_expression=table_column_select_expression,
         source_expression=table_column_select_expression,
-        node_type=NodeType.COLUMN,
     )
 
     return table_child
@@ -273,17 +280,17 @@ def create_node(
     scope: Union[Scope, exp.Table, None],
     schema: Schema,
 ) -> Node:
+    tail_node: Node
     if isinstance(scope, Scope):
         if isinstance(scope.expression, exp.Union):
             union_node = (
                 upstream
                 if upstream.node_type == NodeType.UNION
-                else Node(
+                else UnionNode(
                     name="Union",
                     expression=scope.expression,
                     generated_expression=scope.expression,
                     source_expression=scope.expression,
-                    node_type=NodeType.UNION,
                 )
             )
             if id(upstream) != id(union_node):
@@ -302,12 +309,11 @@ def create_node(
             if id(union_node) != id(left_node):
                 for c in left_node.children:
                     expression = exp.to_column(c.name)  # type: ignore
-                    child = Node(
+                    child = ColumnNode(
                         name=c.name,
                         expression=expression,
                         generated_expression=expression,
                         source_expression=scope.expression,
-                        node_type=NodeType.COLUMN,
                     )
                     child.add_downstream(c)
                     union_node.add_child(child=child)
@@ -334,7 +340,7 @@ def create_node(
             raise ValueError(
                 "Expected a select or subquery statement, actually got {}.".format(scope.expression)
             )
-        this_relation: Optional[exp.Expression] = None
+        this_relation: exp.Expression = exp.Literal(this="empty node", is_string=True)
         from_expression: exp.From = scope.expression.args.get("from")  # type: ignore
         if from_expression:
             this_relation = from_expression.this
@@ -344,16 +350,27 @@ def create_node(
             for subquery_scope in scope.subquery_scopes
         }
 
-        node_type = NodeType.SELECT
+        this_node: Node
         if upstream.node_type == NodeType.UNION:
-            node_name = node_name + f"#{len(upstream.downstreams)}"
+            this_node = SelectNode(
+                name=node_name + f"#{len(upstream.downstreams)}",
+                expression=this_relation,
+                generated_expression=scope.expression,
+                source_expression=scope.expression,
+            )
         elif isinstance(scope.expression, exp.Subquery):
-            node_type = NodeType.SUBQUERY
             node_name = scope.expression.alias_or_name
             this_relation = scope.expression.this
             tmp_scope = get_scope(this_relation)
             if tmp_scope and isinstance(tmp_scope, Scope):
                 scope = tmp_scope
+
+            this_node = SubqueryNode(
+                name=node_name,
+                expression=this_relation,
+                generated_expression=scope.expression,
+                source_expression=scope.expression,
+            )
 
         elif scope.scope_type == ScopeType.ROOT:
             this_relation = exp.Table(
@@ -361,30 +378,34 @@ def create_node(
                 catalog=exp.to_identifier("catalog"),
                 db=exp.to_identifier("myschema"),
             )
-            node_name = "_output_"
-        elif scope.scope_type == ScopeType.DERIVED_TABLE:
-            node_type = NodeType.SUBQUERY
-            this_relation = scope.expression.parent
-            node_name = this_relation.alias_or_name  # type: ignore
-        elif scope.scope_type == ScopeType.CTE:
-            node_type = NodeType.CTE
-
-        if not this_relation:
-            this_node = Node(
-                name=node_name,
-                expression=exp.Literal(this="empty node", is_string=True),
+            this_node = SelectNode(
+                name="_output_",
+                expression=this_relation,
                 generated_expression=scope.expression,
                 source_expression=scope.expression,
-                node_type=node_type,
             )
-        else:
-            this_node = Node(
+        elif scope.scope_type == ScopeType.DERIVED_TABLE and scope.expression.parent:
+            this_node = SubqueryNode(
+                name=scope.expression.parent.alias_or_name,
+                expression=scope.expression.parent,
+                generated_expression=scope.expression,
+                source_expression=scope.expression,
+            )
+        elif scope.scope_type == ScopeType.CTE:
+            this_node = CTENode(
                 name=node_name,
                 expression=this_relation,
                 generated_expression=scope.expression,
                 source_expression=scope.expression,
-                node_type=node_type,
             )
+        else:
+            this_node = SelectNode(
+                name=node_name,
+                expression=this_relation,
+                generated_expression=scope.expression,
+                source_expression=scope.expression,
+            )
+
         upstream.add_downstream(this_node)
 
         nodes: Dict[str, Node] = {}
@@ -402,12 +423,11 @@ def create_node(
             output_col_name = select.output_name
             output_col_expression = select.this
 
-            child_node = Node(
+            child_node = ColumnNode(
                 name=output_col_name,
                 expression=output_col_expression,
                 generated_expression=output_col_expression,
                 source_expression=scope.expression,
-                node_type=NodeType.COLUMN,
             )
             this_node.add_child(child_node)
 
@@ -426,12 +446,11 @@ def create_node(
                 if not parent_child:
                     parent_source = scope.selected_sources.get(c_table)
                     if isinstance(parent_source, tuple) and isinstance(parent_source[1], exp.Table):
-                        parent_child = Node(
+                        parent_child = ColumnNode(
                             name=c_name,
                             expression=exp.Column(this=exp.to_identifier(c_name)),
                             generated_expression=parent_source[1].parent,
                             source_expression=parent_source[1].parent,
-                            node_type=NodeType.COLUMN,
                         )
                         parent_node.add_child(parent_child)
 
@@ -464,35 +483,32 @@ def create_node(
 
     elif isinstance(scope, exp.Table):
         # this is tail node
-        tail_node = Node(
+        tail_node = TableNode(
             name=scope,
             expression=scope,
             generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
             source_expression=None,  # TODO: source_expression should be "FROM {Table}"
-            node_type=NodeType.TABLE,
         )
         upstream.add_downstream(tail_node)
 
         column_names = schema.column_names(scope)
         for c_name in column_names:
-            child_node = Node(
+            child_node = ColumnNode(
                 name=c_name,
                 expression=exp.Column(this=exp.to_identifier(c_name)),
                 generated_expression=scope.parent,
                 source_expression=scope.parent,
-                node_type=NodeType.COLUMN,
             )
             tail_node.add_child(child_node)
 
         return tail_node
     else:
         logger.info(f"WARN: unexpected lineage with source: {scope}")
-        tail_node = Node(
+        tail_node = UnknownNode(
             name="<unknown>",
             expression=scope or exp.Literal(this="<unknown>"),
             generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
             source_expression=None,  # TODO: source_expression should be "FROM {Table}"
-            node_type=NodeType.UNKNOWN,
         )
         upstream.add_downstream(tail_node)
 
@@ -506,12 +522,11 @@ def lineage(sql: str, dialect: Optional[Any] = None, schema: Optional[Any] = Non
     ast = qualify_ast(ast=ast, schema=schema, dialect=dialect)
 
     root_table = exp.to_identifier("ANCHOR")
-    root_node = Node(
+    root_node = SelectNode(
         name="myroot",
         expression=root_table,
         generated_expression=ast,
         source_expression=ast,
-        node_type=NodeType.SELECT,
     )
 
     dest_table: Optional[Node] = get_destination_node(ast)

@@ -29,10 +29,13 @@ class Node:
     generated_expression: Optional[exp.Expression]
     source_expression: Optional[exp.Expression]
     _parent: Optional["Node"] = None
-    node_type: Optional[NodeType] = None
     children: List["Node"] = field(default_factory=list)
     upstreams: List["Node"] = field(default_factory=list)
     downstreams: List["Node"] = field(default_factory=list)
+
+    @property
+    def node_type(self) -> NodeType:
+        raise NotImplementedError
 
     @property
     def node_id(self) -> int:
