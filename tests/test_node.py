@@ -1,7 +1,7 @@
 import unittest
 from sqlglot import exp, parse_one
 
-from datalineage.node import Node, NodeType
+from datalineage.node import Node, ColumnNode
 
 
 class TestNode(unittest.TestCase):
@@ -12,28 +12,25 @@ class TestNode(unittest.TestCase):
             self.assertEqual(first == second, target)
 
     def test_node(self):
-        first_node = Node(
+        first_node = ColumnNode(
             name="first_column",
             expression=exp.to_column("table_1.column"),
             generated_expression=parse_one("select table_1.column from table table_1"),
             source_expression=parse_one("select * from data"),
-            node_type=NodeType.COLUMN,
         )
 
-        second_node = Node(
+        second_node = ColumnNode(
             name="first_column",
             expression=exp.to_column("table_1.column"),
             generated_expression=parse_one("select table_1.column from table table_1"),
             source_expression=parse_one("select * from data"),
-            node_type=NodeType.COLUMN,
         )
 
-        third_node = Node(
+        third_node = ColumnNode(
             name="second_column",
             expression=exp.to_column("table_1.column2"),
             generated_expression=parse_one("select table_1.column2 from table table_1"),
             source_expression=parse_one("select * from data"),
-            node_type=NodeType.COLUMN,
         )
 
         self.validate_node_equal(first_node, second_node, True)
