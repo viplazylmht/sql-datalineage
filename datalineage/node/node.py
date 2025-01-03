@@ -35,7 +35,7 @@ class Node:
 
     @property
     def node_type(self) -> NodeType:
-        return NodeType.UNKNOWN
+        raise NotImplementedError
 
     @property
     def node_id(self) -> int:

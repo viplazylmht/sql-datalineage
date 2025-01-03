@@ -7,3 +7,4 @@ from .subquery_node import SubqueryNode as SubqueryNode
 from .union_node import UnionNode as UnionNode
 from .union_node import UnionAllNode as UnionAllNode
 from .cte_node import CTENode as CTENode
+from .unknown_node import UnknownNode as UnknownNode

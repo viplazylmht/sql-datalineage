@@ -15,6 +15,7 @@ from datalineage.node import (
     UnionNode,
     SubqueryNode,
     CTENode,
+    UnknownNode,
 )
 from datalineage.logger import setup_logger
 
@@ -503,7 +504,7 @@ def create_node(
         return tail_node
     else:
         logger.info(f"WARN: unexpected lineage with source: {scope}")
-        tail_node = Node(
+        tail_node = UnknownNode(
             name="<unknown>",
             expression=scope or exp.Literal(this="<unknown>"),
             generated_expression=None,  # TODO: generated_expression of a Table is select * from this table
