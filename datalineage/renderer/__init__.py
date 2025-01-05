@@ -3,6 +3,7 @@ from typing import Union
 from .renderer import Renderer
 from .json_renderer import JsonRenderer
 from .mermaid_renderer import MermaidRenderer
+from .mermaid_renderer import MermaidType as MermaidType
 
 RENDERER_MAPPING = {
     "json": JsonRenderer,
