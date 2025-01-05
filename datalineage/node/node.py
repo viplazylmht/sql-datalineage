@@ -1,10 +1,14 @@
 from copy import deepcopy
 from enum import Enum
 from dataclasses import dataclass, field
-from typing import List, Optional, Union, Dict
+from typing import List, Optional, Union, Dict, TypeVar, TYPE_CHECKING
 from sqlglot import exp
 import json
 from hashlib import sha256
+
+T = TypeVar("T")
+if TYPE_CHECKING:
+    from datalineage.node.node_visitor import NodeVisitor
 
 
 class NodeType(str, Enum):
@@ -26,8 +30,8 @@ class NodeType(str, Enum):
 class Node:
     name: Union[str, exp.Expression]
     expression: exp.Expression
-    generated_expression: Optional[exp.Expression]
-    source_expression: Optional[exp.Expression]
+    generated_expression: Optional[exp.Expression] = None
+    source_expression: Optional[exp.Expression] = None
     _parent: Optional["Node"] = None
     children: List["Node"] = field(default_factory=list)
     upstreams: List["Node"] = field(default_factory=list)
@@ -236,3 +240,6 @@ class Node:
                 return node
 
         return None
+
+    def accept(self, visitor: "NodeVisitor[T]") -> T:
+        raise NotImplementedError
