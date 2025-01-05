@@ -29,11 +29,12 @@ class MermaidRenderer(Renderer):
                 {{ mermaid_source }}
             </pre>
             <script type="module">
-            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-            
-            await mermaid.run({
-                querySelector: '.mermaid',
-            });
+                import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+                mermaid.initialize({ startOnLoad: false });
+
+                await mermaid.run({
+                    querySelector: '.mermaid',
+                });
             </script>
         </body>
         </html>
