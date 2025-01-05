@@ -1,6 +1,8 @@
 from enum import Enum
 from typing import List
 from sqlglot import exp
+from jinja2 import Template
+from IPython.display import HTML, display
 
 from datalineage.node import Node, NodeType
 from datalineage.renderer.renderer import Renderer
@@ -8,13 +10,34 @@ from datalineage.renderer.renderer import Renderer
 
 class MermaidType(str, Enum):
     SOURCE = "SOURCE"
-    SVG = "SVG"
+    HTML = "HTML"
 
 
 class MermaidRenderer(Renderer):
     DEFAULT_CONFIGURATION = [
         """%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%""",
     ]
+
+    _MERMAID_HTML_TEMPLATE = """
+        <!doctype html>
+        <html lang="en">
+        <head>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+        </head>
+        <body>
+            <pre class="mermaid">
+                {{ mermaid_source }}
+            </pre>
+            <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+            
+            await mermaid.run({
+                querySelector: '.mermaid',
+            });
+            </script>
+        </body>
+        </html>
+    """
 
     def __init__(
         self,
@@ -65,8 +88,12 @@ class MermaidRenderer(Renderer):
         result = ""
         if self.output_type == MermaidType.SOURCE:
             result = mermaid_source
-        elif self.output_type == MermaidType.SVG:
-            # TODO: render mermaid_source to SVG
-            pass
+        elif self.output_type == MermaidType.HTML:
+            rendered_template = Template(self._MERMAID_HTML_TEMPLATE).render(
+                mermaid_source=mermaid_source
+            )
+
+            display(HTML(rendered_template))
+            return rendered_template
 
         return result
