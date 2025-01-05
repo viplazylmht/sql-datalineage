@@ -30,8 +30,8 @@ class NodeType(str, Enum):
 class Node:
     name: Union[str, exp.Expression]
     expression: exp.Expression
-    generated_expression: Optional[exp.Expression]
-    source_expression: Optional[exp.Expression]
+    generated_expression: Optional[exp.Expression] = None
+    source_expression: Optional[exp.Expression] = None
     _parent: Optional["Node"] = None
     children: List["Node"] = field(default_factory=list)
     upstreams: List["Node"] = field(default_factory=list)
