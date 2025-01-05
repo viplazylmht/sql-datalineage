@@ -95,6 +95,6 @@ class MermaidRenderer(Renderer):
             )
 
             display(HTML(rendered_template))
-            return rendered_template
+            result = rendered_template
 
         return result
