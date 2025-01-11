@@ -86,7 +86,7 @@ class TestLineage(unittest.TestCase):
             schema = json.loads(safe_read(path / conf.schema_path))
 
             self.validate_lineage_equal(
-                test_name=f"{ pathlib.Path(conf.path) / conf.input_path} -> {pathlib.Path(conf.path) /conf.output_path}",
+                test_name=f"{pathlib.Path(conf.path) / conf.input_path} -> {pathlib.Path(conf.path) / conf.output_path}",
                 sql=input_str,
                 dialect=conf.dialect,
                 schema=schema,

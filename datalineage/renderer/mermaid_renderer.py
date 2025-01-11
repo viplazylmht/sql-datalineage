@@ -94,7 +94,7 @@ class MermaidRenderer(Renderer):
                         )
                     )
                 for d in child.downstreams:
-                    result.append(f"{self.get_node_id(node_ids=node_ids,node=d)} --> {child_id}")
+                    result.append(f"{self.get_node_id(node_ids=node_ids, node=d)} --> {child_id}")
             result.append("")
 
         return "\n".join(result)
