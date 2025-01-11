@@ -34,6 +34,12 @@
   schema_path: schema.json
   dialect:
   output_type: json
+- path: test_cases/test_scalar_subquery
+  input_path: input.sql
+  output_path: mermaid_output.txt
+  schema_path: schema.json
+  dialect:
+  output_type: mermaid
 - path: test_cases/test_insert
   input_path: 00_input.sql
   output_path: 00_json_output.json

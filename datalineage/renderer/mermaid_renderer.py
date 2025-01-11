@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List
+from typing import List, Dict
 from sqlglot import exp
 from jinja2 import Template
 from IPython.display import HTML, display
@@ -18,8 +18,7 @@ class MermaidRenderer(Renderer):
         """%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%""",
     ]
 
-    _MERMAID_HTML_TEMPLATE = """
-        <!doctype html>
+    _MERMAID_HTML_TEMPLATE = """<!doctype html>
         <html lang="en">
         <head>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
@@ -37,8 +36,7 @@ class MermaidRenderer(Renderer):
                 });
             </script>
         </body>
-        </html>
-    """
+        </html>"""
 
     def __init__(
         self,
@@ -50,35 +48,53 @@ class MermaidRenderer(Renderer):
         self.output_type = output_type
         self.configuration = configuration
 
+    @classmethod
+    def get_node_id(self, node_ids: Dict[Node, int], node: Node) -> int:
+        cached_id = node_ids.get(node)
+        if not cached_id:
+            cached_id = node.node_id
+            node_ids[node] = cached_id
+
+        return cached_id
+
     def _template_mermaid_flowchart(self, node: Node) -> str:
         result = self.configuration + [
             "graph LR",
         ]
+        node_ids: Dict[Node, int] = {}
+
         for n in node.reversed_walk():
             if len(n.children) == 0:
                 continue
 
             replaced_name = self.remove_quote(str(n.name))
+            n_id = self.get_node_id(node_ids=node_ids, node=n)
 
             # each primary node is a subgraph
             node_type = n.node_type or NodeType.UNKNOWN
-            result.append('subgraph {} ["{}: {}"]'.format(id(n), node_type.value, replaced_name))
+            result.append('subgraph {} ["{}: {}"]'.format(n_id, node_type.value, replaced_name))
             for child in n.children:
-                result.append('{}["{}"]'.format(id(child), str(child.name).replace('"', "")))
+                result.append(
+                    '{}["{}"]'.format(
+                        self.get_node_id(node_ids=node_ids, node=child),
+                        str(child.name).replace('"', ""),
+                    )
+                )
             result.append("end")
 
             # define links between node
             for child in n.children:
+                child_id = self.get_node_id(node_ids=node_ids, node=child)
                 if isinstance(child.expression, exp.Func):
                     result.append(
                         '{}_exp[["{}"]] ----- {}'.format(
-                            id(child),
+                            child_id,
                             self.remove_quote(child.expression.sql()),
-                            id(child),
+                            child_id,
                         )
                     )
                 for d in child.downstreams:
-                    result.append(f"{id(d)} --> {id(child)}")
+                    result.append(f"{self.get_node_id(node_ids=node_ids,node=d)} --> {child_id}")
             result.append("")
 
         return "\n".join(result)
