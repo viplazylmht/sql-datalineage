@@ -7,6 +7,7 @@ import yaml
 
 from datalineage.lineage import lineage
 from datalineage.util import safe_read
+from datalineage.renderer.mermaid_renderer import MermaidRenderer
 
 
 class ConfigurationModel(BaseModel):
@@ -47,11 +48,27 @@ class TestLineage(unittest.TestCase):
             self.configurations = list(map(ConfigurationModel.model_validate, conf))
 
     def validate_lineage_equal(
-        self, test_name: str, sql: str, dialect: str, schema: dict, output_str: str
+        self,
+        test_name: str,
+        sql: str,
+        dialect: str,
+        schema: dict,
+        output_str: str,
+        output_type: str,
     ):
+        self.assertTrue(
+            output_type in {"json", "mermaid"},
+            "output type must be json or mermaid, currently: {}".format(output_type),
+        )
+
         with self.subTest("Test lineage equal: {}".format(test_name)):
             generated_lineage = lineage(sql, dialect, schema)
-            self.assertEqual(json.dumps(generated_lineage.to_json_dict(), indent=4), output_str)
+            if output_type == "json":
+                self.assertEqual(json.dumps(generated_lineage.to_json_dict(), indent=4), output_str)
+            elif output_type == "mermaid":
+                self.assertEqual(MermaidRenderer().render(generated_lineage), output_str)
+            else:
+                raise ValueError("Unsupported output_type, currently: {}".format(output_type))
 
             another_generated_lineage = lineage(sql, dialect, schema)
             self.assertEqual(
@@ -74,6 +91,7 @@ class TestLineage(unittest.TestCase):
                 dialect=conf.dialect,
                 schema=schema,
                 output_str=output_str,
+                output_type=conf.output_type,
             )
 
 
