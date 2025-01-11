@@ -73,12 +73,6 @@ end
 > datalineage -i /docs/example/test-query.sql --schema-path docs/example/test-schema.json -o docs/example/output.mermaid -r mermaid
 > ```
 
-> [!NOTE]
-> Currently, the results are generated dynamically, so
-> each run will produce different IDs. However, rest
-> assured that the lineage remains deterministic.
-
-
 You can preview the above result using [Mermaid Live Editor](https://mermaid.live/view#pako:eNqdV1Fv2zYQ_iuCgAAdkDoUJVKUHwYEWd_WDWjyMKwqBFqibW2ypErU1sDwf--RslLzQgfD_GSRH8m77767I49h2VUqXIc3N8e6rfU6OObhtun-Lfdy0Hlovyu1lVOjP6m2UoMazGgequbvPDydgtPNTd7uBtnvg18_5e04beYPmlAieJQkImU0-JyHT3LTqHVQSi2bbrcay706yGhVTqPuDmoI7h-D5X8efsnblw3SiAtYX1fuMM9SDsOtPCh3QiQ8gYl-37WXM4RlJIoozMiqGtQ4ou1iYlY1HRhYd62dBIfz1usTpYnx6eHpA3ikVWSs1xGyQyQ-uzOSEL_dNKUeu82SSCTIbmuaQ1Hw_v3PgXM4IssFGDMQaWgHMAdxh3YAq67Qk0T8jZBPoxqKSh06u6wuR8Peq0FEQUITH5mM-snMeGTUIXd4PKbCTzJPY7Ni0WDxV7dBS1Ornl4OqtVv6yOLU_6iD33oC9CIlcj8Fx0sBPG5xq2MX7sGxFOfa2lmHUCuxcwuID7XXBEZit0IG8sQ2UgCYCMi3QWYoxH7LsAYjYLwA7DYfkVlKXGSkFqGqUtKzLzFIxNE-HUjmF831AbJpxtu89nPqWHQddgYhKKMOAXTULQxgHEUdgSgL2FbGERx5YmfU0ZNlv__Yp2JNLH8uXzDMKE-McOEEN58zIC4-EqxhlXcltb_VKwZiYXVyaNqVAkd7rGUjRwCAH6d1PDs7kxSW2oP8ltx9uEyoPN8ob71nwH08f6PdwsLq7r6CeBfgGj4BQ4e0XMZiwXgLSJECGv32dB1UHwtCMr5mT4s7zM_iG7CCSEZ98qYRYImV3ojI8y22u3UNIUnZeYUM5R50sYGEeY8bM5dCtUDcAg1SwTgTmMzXeoCcHYR9U5nB-spcm6J6MPvvz3cP73T0cq4eQvVxP7xRHZe95alrwCQ128DgMdLacHhwKfvbAtFRQuVAAcwpwCqETG9UlZFxi_Tpegm3U-6cCVBCff0Yxal1FtXWcRiv_CSNPZfyhiD3IivCY_BlYdT4RWeXTnX8WvCMzJzg2EcQhmEZAOuoUxCAHbZyqzMkHTjy2Zow_8DsLiLBHEBOHuMsgvtYHtDeBtCSTrIuoKb_TFvA7iva6jgar66l88bNfRTCxf4vD0BWE66e3xuy3Cth0ndhkM37fbLx9RXUqtfagk6OSyDvWz_7Dr43MpmfAF9qGrdDS-DTSfhwRCuj6F-7s0jY1ePGo4ru3Zb78z4NDQwvNe6H9d3d2Z6tav1ftqsyu5wN9aVeYXs_8n4HadcSBoruCBIFsdVuYHauaVJtK1SElEJT5HbUNnzP84vGvuwOX0HCJN90Q), here is the result:
 
 ![readme_example](https://raw.github.com/viplazylmht/sql-datalineage/master/docs/img/readme_example.svg)
@@ -175,42 +169,15 @@ end
 > [!TIP]
 > You can render to json format using `datalineage.renderer.JsonRenderer` class, or customize your own renderer.
 > 
-> Here is the flow-chart of the above result:
-> ```mermaid
-> %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
-> graph LR
-> subgraph 1434247920720 ["Table: catalog.schema1.customer AS customer"]
-> 1434247920624["id"]
-> 1434247921104["name"]
-> 1434247919568["phone"]
-> 1434247921200["address"]
-> end
+> If you are in enviroment which support Ipython (for example, jupyter notebook), you can render the mermaid graph directly:
+> ```python
+> from datalineage.renderer import MermaidRenderer, MermaidType
 > 
-> subgraph 1434247919280 ["Subquery: data"]
-> 1434247920816["id"]
-> 1434247919856["name"]
-> 1434247917696["phone"]
-> 1434247917744["address"]
-> 1434247918224["rn"]
-> end
-> 1434247920624 --> 1434247920816
-> 1434247921104 --> 1434247919856
-> 1434247919568 --> 1434247917696
-> 1434247921200 --> 1434247917744
-> 1434247919568 --> 1434247918224
-> 1434247921104 --> 1434247918224
-> 
-> subgraph 1434247918032 ["Select: _output_"]
-> 1434247921392["id"]
-> 1434247921344["name"]
-> 1434247921152["phone"]
-> 1434247920912["address"]
-> end
-> 1434247920816 --> 1434247921392
-> 1434247919856 --> 1434247921344
-> 1434247917696 --> 1434247921152
-> 1434247917744 --> 1434247920912
+> html_renderer = MermaidRenderer(output_type=MermaidType.HTML)
+> html_output = html_renderer.render(tree)
 > ```
+> Output: ![readme_mermaid_html_jupyter](./docs/img/readme_mermaid_html_jupyter.png)
+> 
 
 
 # Contribution
