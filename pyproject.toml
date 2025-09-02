@@ -72,3 +72,6 @@ dev = [
     "types-pyyaml>=6.0.12.20240917",
     "ipykernel",
 ]
+
+[tool.mypy]
+exclude = ["venv", ".venv", ".venv.nosync", ".mypy_cache", ".ruff_cache", "__pycache__"]

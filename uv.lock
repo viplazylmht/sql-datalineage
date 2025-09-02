@@ -1229,7 +1229,7 @@ wheels = [
 
 [[package]]
 name = "sql-datalineage"
-version = "0.0.15.dev32+gadacd957c.d20250902"
+version = "0.0.15.dev35+g64fc6281b.d20250902"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
