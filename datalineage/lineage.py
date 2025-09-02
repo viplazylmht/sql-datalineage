@@ -44,6 +44,46 @@ def qualify_ast(ast: exp.Expression, schema: Schema, dialect: Optional[Any]) -> 
     return ast
 
 
+def build_scope_with(scope: Scope) -> Optional[exp.With]:
+    cte_stack: List[Dict[str, exp.CTE]] = []
+    prune_at_cte_name: Optional[str] = None
+
+    current_scope: Optional[Scope] = scope
+    while current_scope:
+        current_with: Optional[exp.With] = (
+            current_scope.expression.args.get("with")
+            if isinstance(current_scope.expression, exp.Expression)
+            else None
+        )
+        if current_with:
+            ctes: Dict[str, exp.CTE] = {}
+            for cte in current_with.expressions:
+                if isinstance(cte, exp.CTE):
+                    cte_name = cte.alias_or_name
+                    if prune_at_cte_name and cte_name == prune_at_cte_name:
+                        break
+                    ctes[cte_name] = cte
+
+            cte_stack.insert(0, ctes)
+
+        prune_at_cte_name = (
+            current_scope.expression.parent.alias_or_name
+            if isinstance(current_scope.expression.parent, exp.CTE)
+            else None
+        )
+        current_scope = current_scope.parent
+
+    final_ctes: Dict[str, exp.CTE] = {}
+    for ctes in cte_stack:
+        final_ctes.update(ctes)
+
+    if len(final_ctes) > 0:
+        with_expression = exp.With(expressions=list(final_ctes.values()))
+        return with_expression
+
+    return None
+
+
 def get_destination_node(ast: exp.Expression) -> Optional[Node]:
     table_exp: Optional[exp.Table] = None
     columns: List[exp.Identifier] = []
@@ -268,9 +308,7 @@ def link_source_to_dest(ast: exp.Expression, dest_table: Node, schema: Schema):
 def load_scope(
     scope: Union[Scope, exp.Table, None], root_node: Node, upstream: Node, schema: Schema
 ):
-    create_node(
-        root_node=root_node, upstream=upstream, node_name="dummy", scope=scope, schema=schema
-    )
+    create_node(root_node=root_node, upstream=upstream, node_name="", scope=scope, schema=schema)
 
 
 def create_node(
@@ -287,7 +325,7 @@ def create_node(
                 upstream
                 if upstream.node_type == NodeType.UNION
                 else UnionNode(
-                    name="Union",
+                    name=node_name or "Union",
                     expression=scope.expression,
                     generated_expression=scope.expression,
                     source_expression=scope.expression,
@@ -297,13 +335,18 @@ def create_node(
                 upstream.add_downstream(union_node)
 
             left_expression = scope.expression.left
-            left_expression.set("with", scope.expression.args.get("with"))
+            with_expression = build_scope_with(scope)
+            if with_expression:
+                left_expression.set("with", with_expression)
+            left_scope = build_scope(left_expression)
+            if left_scope:
+                left_scope.parent = scope
 
             left_node = create_node(
                 root_node=root_node,
                 upstream=union_node,
                 node_name="Union Slot",
-                scope=build_scope(left_expression),
+                scope=left_scope,
                 schema=schema,
             )
             if id(union_node) != id(left_node):
@@ -319,13 +362,17 @@ def create_node(
                     union_node.add_child(child=child)
 
             right_expression = scope.expression.right
-            right_expression.set("with", scope.expression.args.get("with"))
+            if with_expression:
+                right_expression.set("with", with_expression)
+            right_scope = build_scope(right_expression)
+            if right_scope:
+                right_scope.parent = scope
 
             right_node = create_node(
                 root_node=root_node,
                 upstream=union_node,
                 node_name="Union Slot",
-                scope=build_scope(right_expression),
+                scope=right_scope,
                 schema=schema,
             )
             for i, c in enumerate(right_node.children, 0):

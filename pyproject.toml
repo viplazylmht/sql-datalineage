@@ -70,4 +70,5 @@ dev = [
     "pyyaml>=6.0.2",
     "ruff>=0.4.3",
     "types-pyyaml>=6.0.12.20240917",
+    "ipykernel",
 ]
