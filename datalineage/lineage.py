@@ -47,6 +47,11 @@ def qualify_ast(ast: exp.Expression, schema: Schema, dialect: Optional[Any]) -> 
 def build_scope_with(scope: Scope) -> Optional[exp.With]:
     cte_stack: List[Dict[str, exp.CTE]] = []
     prune_at_cte_name: Optional[str] = None
+    # `prune_at_cte_name` is used to handle CTE visibility.
+    # A CTE can only reference preceding CTEs within the same WITH clause.
+    # When traversing up the scope, if we encounter a CTE that is the parent
+    # of the current expression, we need to "prune" subsequent CTEs in that
+    # parent's WITH clause, as they are not visible to the current expression.
 
     current_scope: Optional[Scope] = scope
     while current_scope:
