@@ -62,6 +62,7 @@ class MermaidRenderer(Renderer):
             "graph LR",
         ]
         node_ids: Dict[Node, int] = {}
+        rendered_node_ids = set()
 
         for n in node.reversed_walk():
             if len(n.children) == 0:
@@ -69,6 +70,9 @@ class MermaidRenderer(Renderer):
 
             replaced_name = self.remove_quote(str(n.name))
             n_id = self.get_node_id(node_ids=node_ids, node=n)
+
+            if n_id in rendered_node_ids:
+                continue
 
             # each primary node is a subgraph
             node_type = n.node_type or NodeType.UNKNOWN
@@ -96,6 +100,7 @@ class MermaidRenderer(Renderer):
                 for d in child.downstreams:
                     result.append(f"{self.get_node_id(node_ids=node_ids, node=d)} --> {child_id}")
             result.append("")
+            rendered_node_ids.add(n_id)
 
         return "\n".join(result)
 

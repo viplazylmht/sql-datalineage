@@ -28,6 +28,12 @@
   schema_path: schema.json
   dialect: postgres
   output_type: json
+- path: test_cases/test_union
+  input_path: 04_input.sql
+  output_path: 04_mermaid_output.txt
+  schema_path: schema.json
+  dialect: postgres
+  output_type: mermaid
 - path: test_cases/test_select_not_from_table
   input_path: 00_input.sql
   output_path: 00_json_output.json
