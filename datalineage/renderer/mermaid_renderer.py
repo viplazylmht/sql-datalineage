@@ -49,7 +49,7 @@ class MermaidRenderer(Renderer):
         self.configuration = configuration
 
     @classmethod
-    def get_node_id(self, node_ids: Dict[Node, int], node: Node) -> int:
+    def get_node_id(cls, node_ids: Dict[Node, int], node: Node) -> int:
         cached_id = node_ids.get(node)
         if not cached_id:
             cached_id = node.node_id
