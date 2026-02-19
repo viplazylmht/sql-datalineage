@@ -393,8 +393,8 @@ def create_node(
                 "Expected a select or subquery statement, actually got {}.".format(scope.expression)
             )
         this_relation: exp.Expression = exp.Literal(this="empty node", is_string=True)
-        from_expression: exp.From = scope.expression.args.get("from")  # type: ignore
-        if from_expression:
+        from_expression = scope.expression.args.get("from")
+        if isinstance(from_expression, exp.From):
             this_relation = from_expression.this
 
         subquery_scopes = {

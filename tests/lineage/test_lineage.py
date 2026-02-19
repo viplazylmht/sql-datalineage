@@ -51,8 +51,8 @@ class TestLineage(unittest.TestCase):
         self,
         test_name: str,
         sql: str,
-        dialect: str,
-        schema: dict,
+        dialect: Optional[str],
+        schema: Optional[dict],
         output_str: str,
         output_type: str,
     ):
@@ -81,16 +81,26 @@ class TestLineage(unittest.TestCase):
         print("test lineage")
         for conf in self.configurations:
             path = self.PWD / conf.path
-            input_str = safe_read(path / conf.input_path)
-            output_str = safe_read(path / conf.output_path)
-            schema = json.loads(safe_read(path / conf.schema_path))
+            input_str = safe_read(str(path / conf.input_path))
+            output_str = safe_read(str(path / conf.output_path))
+            schema_str = safe_read(str(path / conf.schema_path))
+            self.assertIsNotNone(
+                input_str, "input sql should not be None, path: {}".format(path / conf.input_path)
+            )
+            self.assertIsNotNone(
+                output_str, "output should not be None, path: {}".format(path / conf.output_path)
+            )
+            self.assertIsNotNone(
+                schema_str, "schema should not be None, path: {}".format(path / conf.schema_path)
+            )
+            schema = json.loads(schema_str or "")
 
             self.validate_lineage_equal(
                 test_name=f"{pathlib.Path(conf.path) / conf.input_path} -> {pathlib.Path(conf.path) / conf.output_path}",
-                sql=input_str,
+                sql=input_str or "",
                 dialect=conf.dialect,
                 schema=schema,
-                output_str=output_str,
+                output_str=output_str or "",
                 output_type=conf.output_type,
             )
 
