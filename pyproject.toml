@@ -65,13 +65,13 @@ packages = ["datalineage"]
 
 [dependency-groups]
 dev = [
-    "mypy>=1.13.0",
     "pre-commit>=3.5.0",
     "pyyaml>=6.0.2",
     "ruff>=0.4.3",
     "types-pyyaml>=6.0.12.20240917",
     "ipykernel",
+    "ty>=0.0.17",
 ]
 
-[tool.mypy]
+[tool.ty.src]
 exclude = ["venv", ".venv", ".venv.nosync", ".mypy_cache", ".ruff_cache", "__pycache__"]

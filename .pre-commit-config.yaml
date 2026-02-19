@@ -22,9 +22,9 @@ repos:
         language: python
         types_or: [python, pyi]
         require_serial: true
-      - id: mypy
-        name: mypy
-        entry: uv run --no-project -- mypy datalineage tests
+      - id: ty
+        name: ty
+        entry: uv run --no-project -- ty check datalineage tests
         language: system
         types: [ python ]
         files: ^(datalineage/|tests/)
