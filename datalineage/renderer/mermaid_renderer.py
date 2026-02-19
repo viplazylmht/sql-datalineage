@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Dict
+from typing import List
 from sqlglot import exp
 from jinja2 import Template
 from IPython.display import HTML, display
@@ -48,20 +48,10 @@ class MermaidRenderer(Renderer):
         self.output_type = output_type
         self.configuration = configuration
 
-    @classmethod
-    def get_node_id(cls, node_ids: Dict[Node, int], node: Node) -> int:
-        cached_id = node_ids.get(node)
-        if not cached_id:
-            cached_id = node.node_id
-            node_ids[node] = cached_id
-
-        return cached_id
-
     def _template_mermaid_flowchart(self, node: Node) -> str:
         result = self.configuration + [
             "graph LR",
         ]
-        node_ids: Dict[Node, int] = {}
         rendered_node_ids = set()
 
         for n in node.reversed_walk():
@@ -69,7 +59,7 @@ class MermaidRenderer(Renderer):
                 continue
 
             replaced_name = self.remove_quote(str(n.name))
-            n_id = self.get_node_id(node_ids=node_ids, node=n)
+            n_id = n.node_id
 
             if n_id in rendered_node_ids:
                 continue
@@ -80,7 +70,7 @@ class MermaidRenderer(Renderer):
             for child in n.children:
                 result.append(
                     '{}["{}"]'.format(
-                        self.get_node_id(node_ids=node_ids, node=child),
+                        child.node_id,
                         str(child.name).replace('"', ""),
                     )
                 )
@@ -88,7 +78,7 @@ class MermaidRenderer(Renderer):
 
             # define links between node
             for child in n.children:
-                child_id = self.get_node_id(node_ids=node_ids, node=child)
+                child_id = child.node_id
                 if isinstance(child.expression, exp.Func):
                     result.append(
                         '{}_exp[["{}"]] ----- {}'.format(
@@ -98,7 +88,7 @@ class MermaidRenderer(Renderer):
                         )
                     )
                 for d in child.downstreams:
-                    result.append(f"{self.get_node_id(node_ids=node_ids, node=d)} --> {child_id}")
+                    result.append(f"{d.node_id} --> {child_id}")
             result.append("")
             rendered_node_ids.add(n_id)
 

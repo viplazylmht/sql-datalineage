@@ -1,9 +1,8 @@
 import unittest
 from sqlglot import exp, parse_one
-from typing import Dict
 
 from datalineage.renderer.mermaid_renderer import MermaidRenderer, MermaidType
-from datalineage.node import ColumnNode, TableNode, SelectNode, Node
+from datalineage.node import ColumnNode, TableNode, SelectNode
 
 
 class TestmermaidRetriever(unittest.TestCase):
@@ -37,28 +36,6 @@ class TestmermaidRetriever(unittest.TestCase):
         self.select_gender_column_node.add_downstream(self.table_gender_column_node)
 
         return super().setUp()
-
-    def test_get_node_id(self):
-        base_node_ids: Dict[Node, int] = {}
-
-        renderer = MermaidRenderer()
-
-        self.assertEqual(
-            renderer.get_node_id(base_node_ids, self.select_node),
-            self.select_node.node_id,
-        )
-        self.assertEqual(
-            renderer.get_node_id(base_node_ids, self.select_node),
-            self.select_node.node_id,
-        )
-        self.assertEqual(
-            renderer.get_node_id(base_node_ids, self.table_gender_column_node),
-            self.table_gender_column_node.node_id,
-        )
-        self.assertEqual(
-            renderer.get_node_id(base_node_ids, self.table_gender_column_node),
-            self.table_gender_column_node.node_id,
-        )
 
     def test_render_source(self):
         self.assertEqual(
