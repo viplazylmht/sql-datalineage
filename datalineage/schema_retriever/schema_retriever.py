@@ -20,7 +20,8 @@ class SchemaRetriever(ABC):
 
     @property
     def schema(self) -> Schema:
-        return self._schema
+        with self._lock:
+            return self._schema
 
     @property
     def dialect(self) -> Optional[str]:
@@ -57,7 +58,7 @@ class SchemaRetriever(ABC):
             column_mappings = executor.map(self.retrieve_ignoring_errors, retrieval_tasks)
 
         with self._lock:
-            for table, column_mapping in zip(tables, column_mappings):
+            for table, column_mapping in zip(retrieval_tasks, column_mappings):
                 if column_mapping:
                     self._schema.add_table(
                         table=table, column_mapping=column_mapping, dialect=self.dialect

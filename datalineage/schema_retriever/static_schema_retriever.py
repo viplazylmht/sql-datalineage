@@ -10,9 +10,10 @@ class StaticSchemaRetriever(SchemaRetriever):
         super().__init__(schema=schema, dialect=dialect)
 
     def retrieve_table_schema(self, table: exp.Table) -> Optional[Dict]:
+        schema = self.schema
         column_defs = {
-            column: self._schema.get_column_type(table=table, column=column)
-            for column in self._schema.column_names(table=table)
+            column: schema.get_column_type(table=table, column=column)
+            for column in schema.column_names(table=table)
         }
 
         if column_defs:
