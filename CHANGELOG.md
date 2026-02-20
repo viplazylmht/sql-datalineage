@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.0.16] - 2026-02-20
+### :bug: Bug Fixes
+- [`b83cfb6`](https://github.com/viplazylmht/sql-datalineage/commit/b83cfb60dda3e5f2f244279ab44b4b543af672c3) - **renderer**: correct method signature for get_node_id *(commit by [@AbhishekASLK](https://github.com/AbhishekASLK))*
+
+### :zap: Performance Improvements
+- [`0b20dae`](https://github.com/viplazylmht/sql-datalineage/commit/0b20dae290a32a1775cfa0e24fd46cd5bf6420a1) - **renderer**: improving mermaid render performance *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+- [`491daf2`](https://github.com/viplazylmht/sql-datalineage/commit/491daf27631810e4c0b66a0f29a05a59c77d7ddf) - **schema_retriever**: improving batching schema retriever performance *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+### :wrench: Chores
+- [`794f299`](https://github.com/viplazylmht/sql-datalineage/commit/794f299f6fa239543e074c48cb8e4b023fd9b9cd) - **build**: switch type-checker from mypy to ty *(commit by [@viplazylmht](https://github.com/viplazylmht))*
+
+
 ## [v0.0.15] - 2025-09-02
 ### :sparkles: New Features
 - [`9c121c0`](https://github.com/viplazylmht/sql-datalineage/commit/9c121c0d22b3542d5e00ff82bcdac89962db9b86) - add initial schema retriever and its sqlalchemy impl *(commit by [@viplazylmht](https://github.com/viplazylmht))*
@@ -107,3 +119,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v0.0.13]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.12...v0.0.13
 [v0.0.14]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.13...v0.0.14
 [v0.0.15]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.14...v0.0.15
+[v0.0.16]: https://github.com/viplazylmht/sql-datalineage/compare/v0.0.15...v0.0.16
