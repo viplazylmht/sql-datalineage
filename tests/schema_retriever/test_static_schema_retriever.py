@@ -1,11 +1,11 @@
 import unittest
 from sqlglot import exp
 
-from .test_schema_retriever import TestSchemaRetriever
+from .test_schema_retriever import TestSchemaRetrieverBase
 from datalineage.schema_retriever.static_schema_retriever import StaticSchemaRetriever
 
 
-class TestStaticSchemaRetriever(TestSchemaRetriever):
+class TestStaticSchemaRetriever(TestSchemaRetrieverBase):
     def setUp(self):
         self._dialect = "bigquery"
         self._schema_retriever = StaticSchemaRetriever(
@@ -28,16 +28,12 @@ class TestStaticSchemaRetriever(TestSchemaRetriever):
         return super().setUp()
 
     def test_retrieve_schema(self):
-        base_schema = None
         message_table = exp.to_table("messages")
         profile_table = "profiles"
         unknown_table = "unknown"
 
-        schema = self._schema_retriever.retrieve_schema(
-            base_schema=base_schema,
-            tables=[message_table, profile_table, unknown_table],
-            dialect=self._dialect,
-        )
+        self._schema_retriever.retrieve_schema(tables=[message_table, profile_table, unknown_table])
+        schema = self._schema_retriever.schema
 
         self.validate_column_names(
             schema=schema,
