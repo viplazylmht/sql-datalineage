@@ -62,7 +62,7 @@ For example, for the query:
 SELECT id, name FROM (SELECT id, name FROM catalog.schema1.customer) data
 ```
 The internal DAG is structured as follows:
-1. `TableNode: catalog.schema1.customer`
+1. `TableNode: "catalog"."schema1"."customer" AS "customer"`
    - Child `ColumnNode: id`
    - Child `ColumnNode: name`
 2. `SubqueryNode: data`
